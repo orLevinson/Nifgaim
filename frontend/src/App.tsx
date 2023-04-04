@@ -1,18 +1,40 @@
-import { Routes, Route, Outlet, Link } from "react-router-dom";
+import { useContext } from "react";
+import { Routes, Route } from "react-router-dom";
+import {
+  adminPermRoutes,
+  editPermRoutes,
+  publicRoutes,
+  viewPermRoutes,
+} from "./routes";
+import UserCtx from "./Shared/Context/UserCtx";
+import Navbar from "./Shared/UIElements/Navbar";
+
 function App() {
+  const UserCtxValues = useContext(UserCtx);
+  let routeList = publicRoutes;
+  let showNav = false;
+
+  if (UserCtxValues.canView) {
+    routeList = viewPermRoutes;
+    showNav = true;
+  }
+  if (UserCtxValues.canEdit) {
+    routeList = editPermRoutes;
+    showNav = true;
+  }
+  if (UserCtxValues.isAdmin) {
+    routeList = adminPermRoutes;
+    showNav = true;
+  }
+
   return (
     <div className="App">
+      {showNav && <Navbar routes={routeList} />}
       <Routes>
-        <Route path="/" element={<></>}>
-          <Route index element={<></>} />
-          <Route path="about" element={<></>} />
-          <Route path="dashboard" element={<></>} />
-
-          {/* Using path="*"" means "match anything", so this route
-                acts like a catch-all for URLs that we don't have explicit
-                routes for. */}
-          <Route path="*" element={<></>} />
-        </Route>
+        {routeList.map((route, index) => {
+          return <Route key={index} path={route.url} element={route.page} />;
+        })}
+        <Route path="*" element={<></>} />
       </Routes>
     </div>
   );
