@@ -9,6 +9,7 @@ type Fields = {
     options?: string[];
   }[];
   options?: string[];
+  width?: "big"|"medium"|"small";
 };
 
 export default Fields;

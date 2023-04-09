@@ -1,7 +1,20 @@
-import { GridColDef, GridColumnGroupingModel } from "@mui/x-data-grid";
+import { TableColumn } from "react-data-table-component";
 import Fields from "./Fields";
 
-export type columnsAndGroups = (fields: Fields[]) => {
-  columns: GridColDef<never, any, any>[];
-  groups: GridColumnGroupingModel;
+// for the columns
+export type columnsType = {
+  [key: string]: string | { [key: string]: string }[];
 };
+
+export type dataType = {
+  [key: string]:
+    | string
+    | {
+        [key: string]: string;
+      }[];
+};
+
+// for the columns generator
+export type columnsGeneratorType = (
+  fields: Fields[]
+) => TableColumn<columnsType>[];
