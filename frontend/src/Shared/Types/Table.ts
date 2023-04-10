@@ -16,5 +16,21 @@ export type dataType = {
 
 // for the columns generator
 export type columnsGeneratorType = (
-  fields: Fields[]
+  fields: Fields[],
+  changeHander: React.Dispatch<reducerActionType>
 ) => TableColumn<columnsType>[];
+
+export type reducerActionType = {
+  type:
+    | "addRow"
+    | "removeRow"
+    | "changeRow"
+    | "removeTab"
+    | "addTab"
+    | "changeTab";
+  rowIndex?: number;
+  columnId?: string;
+  subRowIndex?: number;
+  subColumnId?: string;
+  value?: string;
+};

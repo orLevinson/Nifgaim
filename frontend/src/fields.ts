@@ -13,7 +13,7 @@ export const fieldsExample: Fields[] = [
   {
     id: "2",
     name: "כתובת",
-    type: "text",
+    type: "multi-row",
     children: [],
     options: [],
   },
@@ -65,38 +65,12 @@ export const fieldsExample: Fields[] = [
     options: [],
   },
   {
-    id: "5",
-    name: "פרטי איש לא קשר קשר",
-    type: "multi-attributes",
-    children: [
-      {
-        id: "6",
-        name: "שם מלא",
-        type: "text",
-        options: [],
-      },
-      {
-        id: "7",
-        name: "כתובת",
-        type: "text",
-        options: [],
-      },
-      {
-        id: "8",
-        name: "פיקוד",
-        type: "select",
-        options: commands,
-      },
-    ],
-    options: [],
-  },
-  {
     id: "9",
     name: "שייך לקהילה מיוחדת?",
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width:"big"
+    width: "big",
   },
   {
     id: "91",
@@ -104,7 +78,7 @@ export const fieldsExample: Fields[] = [
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width:"big"
+    width: "big",
   },
   {
     id: "39",
@@ -112,7 +86,7 @@ export const fieldsExample: Fields[] = [
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width:"big"
+    width: "big",
   },
 ];
 
@@ -148,6 +122,10 @@ export const exampleData = (fields: Fields[]) => {
       } else if (field.type === "date") {
         const date = new Date();
         newEntry[field.id] = date.toISOString();
+      } else if (field.type === "select") {
+        newEntry[field.id] = Array.isArray(field.options)
+          ? field.options[Math.floor(Math.random() * field.options.length)]
+          : "אופציה";
       } else {
         newEntry[field.id] = "שלום" + field.name;
       }

@@ -1,4 +1,4 @@
-import Edit from "./Pages/edit";
+import Edit from "./Pages/Edit";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 
