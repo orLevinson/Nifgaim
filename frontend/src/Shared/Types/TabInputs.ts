@@ -2,7 +2,6 @@ import { reducerActionType } from "./Table";
 
 export type TextTabInputProps = {
   rowId: string;
-  rowIndex: number;
   columnId: string;
   subRowIndex?: number;
   subColumnId?: string;
@@ -12,7 +11,6 @@ export type TextTabInputProps = {
 
 export type SelectTabInputProps = {
   rowId: string;
-  rowIndex: number;
   columnId: string;
   subRowIndex?: number;
   subColumnId?: string;

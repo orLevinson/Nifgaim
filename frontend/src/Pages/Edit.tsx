@@ -76,7 +76,7 @@ const Edit = () => {
               dispatchRows={dispatchRows}
               columns={columns}
               data={data}
-              rowId={data.id}
+              rowId={data.id as string}
             />
           );
         }}
