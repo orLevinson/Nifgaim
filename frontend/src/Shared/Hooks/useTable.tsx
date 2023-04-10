@@ -25,18 +25,15 @@ const useTable = () => {
       switch (field.type) {
         case "date":
           columns.push({
-            cell: (row: any, index: number, column: any, id: string) => {
-              console.log(id);
-              return (
-                <DateInput
-                  changeHandler={changeHandler}
-                  rowId={row.id}
-                  rowIndex={index}
-                  columnId={field.id}
-                  data={row[field.id]}
-                />
-              );
-            },
+            cell: (row: any, index: number, column: any, id: string) => (
+              <DateInput
+                changeHandler={changeHandler}
+                rowId={row.id}
+                rowIndex={index}
+                columnId={field.id}
+                data={row[field.id]}
+              />
+            ),
             name: field.name,
             sortable: true,
             width: sizes[field.width ? field.width : "big"],

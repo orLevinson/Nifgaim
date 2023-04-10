@@ -37,9 +37,6 @@ const TextInput = (props: TextInputProps) => {
       onChange={(e) => {
         optimizedChangeFunction(e);
       }}
-      onClick={() => {
-        console.log(rowId, rowIndex, columnId, data);
-      }}
     />
   );
 };
