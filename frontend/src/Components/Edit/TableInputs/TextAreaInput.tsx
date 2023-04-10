@@ -10,7 +10,7 @@ const TextAreaInput = (props: TextInputProps) => {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       changeHandler({
         type: "changeRow",
-        rowIndex,
+        rowId,
         columnId,
         value: e.target.value,
       });

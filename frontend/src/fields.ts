@@ -9,6 +9,7 @@ export const fieldsExample: Fields[] = [
     type: "text",
     children: [],
     options: [],
+    width: "medium",
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const fieldsExample: Fields[] = [
     type: "multi-row",
     children: [],
     options: [],
+    width: "big",
   },
   {
     id: "2.5",
@@ -23,6 +25,7 @@ export const fieldsExample: Fields[] = [
     type: "date",
     children: [],
     options: [],
+    width: "small",
   },
   {
     id: "3",
@@ -30,6 +33,7 @@ export const fieldsExample: Fields[] = [
     type: "text",
     children: [],
     options: commands,
+    width: "small",
   },
   {
     id: "4",
@@ -37,6 +41,7 @@ export const fieldsExample: Fields[] = [
     type: "text",
     children: [],
     options: [],
+    width: "medium",
   },
   {
     id: "5",
@@ -52,7 +57,7 @@ export const fieldsExample: Fields[] = [
       {
         id: "7",
         name: "כתובת",
-        type: "text",
+        type: "multi-row",
         options: [],
       },
       {
@@ -61,8 +66,15 @@ export const fieldsExample: Fields[] = [
         type: "select",
         options: commands,
       },
+      {
+        id: "812",
+        name: "תאריך לידה",
+        type: "date",
+        options: [],
+      },
     ],
     options: [],
+    width: "small",
   },
   {
     id: "9",
@@ -70,7 +82,7 @@ export const fieldsExample: Fields[] = [
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width: "big",
+    width: "medium",
   },
   {
     id: "91",
@@ -78,7 +90,7 @@ export const fieldsExample: Fields[] = [
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width: "big",
+    width: "medium",
   },
   {
     id: "39",
@@ -86,7 +98,7 @@ export const fieldsExample: Fields[] = [
     type: "select",
     children: [],
     options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
-    width: "big",
+    width: "medium",
   },
 ];
 
@@ -114,7 +126,20 @@ export const exampleData = (fields: Fields[]) => {
             [key: string]: string;
           } = {};
           field.children!.forEach((option) => {
-            item[option.id] = "היי" + option.name + j;
+            let value: any;
+            switch (option.type) {
+              case "text":
+              case "multi-row":
+                value = "שלום עולם";
+                break;
+              case "date":
+                value = new Date().toISOString();
+                break;
+              default:
+                value = commands[0];
+                break;
+            }
+            item[option.id] = value;
           });
           res.push(item);
         }

@@ -17,7 +17,7 @@ const SelectInput = (props: SelectInputProps) => {
     (e: SelectChangeEvent<string>) => {
       changeHandler({
         type: "changeRow",
-        rowIndex,
+        rowId,
         columnId,
         value: e.target.value,
       });
@@ -25,7 +25,7 @@ const SelectInput = (props: SelectInputProps) => {
     [rowIndex, columnId]
   );
 
-  //   using mui input i can make a text input
+  //   using mui select i can make a select input
   return (
     <Select
       size="small"

@@ -29,6 +29,7 @@ export type reducerActionType = {
     | "addTab"
     | "changeTab";
   rowIndex?: number;
+  rowId?: string;
   columnId?: string;
   subRowIndex?: number;
   subColumnId?: string;

@@ -3,6 +3,7 @@ import DataTable, { Direction } from "react-data-table-component";
 import ExpandedTab from "../Components/Edit/ExpandedTab";
 import { useReducer, useState } from "react";
 import useTable from "../Shared/Hooks/useTable";
+import { Button } from "@mui/material";
 
 const Edit = () => {
   // MUI really sucks when it comes to RTL support \:
@@ -37,6 +38,28 @@ const Edit = () => {
     <div
       style={{ width: "90%", margin: "auto", marginTop: 30, marginBottom: 30 }}
     >
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <h1>טבלת נפגעים</h1>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <Button
+            variant={"contained"}
+            color={"success"}
+            onClick={() => {
+              dispatchRows({ type: "addRow" });
+            }}
+          >
+            + הוספת רשומה
+          </Button>
+          <Button variant={"contained"}>ייצוא לCSV</Button>
+        </div>
+      </div>
       <DataTable
         columns={columnsGenerator(columns, dispatchRows)}
         data={rows}
@@ -53,7 +76,7 @@ const Edit = () => {
               dispatchRows={dispatchRows}
               columns={columns}
               data={data}
-              rowIndex={rows.findIndex((item) => item.id === data.id)}
+              rowId={data.id}
             />
           );
         }}

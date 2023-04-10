@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   Paper,
   Table,
@@ -8,32 +9,31 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import Fields from "../../Shared/Types/Fields";
 import { dataType, reducerActionType } from "../../Shared/Types/Table";
+import DateTabInput from "./TabInputs/DateTabInput";
+import SelectTabInput from "./TabInputs/SelectTabInput";
+import TextAreaTabInput from "./TabInputs/TextAreaTabInput";
 import TextTabInput from "./TabInputs/TextTabInput";
 
 // my solution for the expended tab
 const ExpandedTab = ({
   dispatchRows,
-  rowIndex,
+  rowId,
   data,
   columns,
 }: {
   dispatchRows: React.Dispatch<reducerActionType>;
-  rowIndex: number;
+  rowId: string;
   data: dataType;
   columns: Fields[];
 }) => {
   // get all the multi attribute columns that needed to be rendered in the expanded tab
   const expandedCols = columns.filter((col) => col.type === "multi-attributes");
 
-  useEffect(() => {
-    console.log("remounted expanded tab");
-  }, []);
-
   return (
-    <div>
+    <div style={{ width: "90vw" }}>
       {/* for each column */}
       {expandedCols.map((col, columnIndex) => {
         const dataArr: {
@@ -55,9 +55,30 @@ const ExpandedTab = ({
             key={columnIndex}
           >
             <>
-              <h1>{col.name}</h1>
+              <h1
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "10px",
+                }}
+              >
+                {col.name}{" "}
+                <Button
+                  variant={"contained"}
+                  color={"success"}
+                  onClick={() => {
+                    dispatchRows({
+                      type: "addTab",
+                      rowId: data.id as string,
+                      columnId: col.id,
+                    });
+                  }}
+                >
+                  הוסף רשומה
+                </Button>
+              </h1>
               {/* go over all the data in the row for the given column */}
-
               <TableContainer component={Paper}>
                 <Table aria-label="tab-Table">
                   <TableHead>
@@ -69,10 +90,11 @@ const ExpandedTab = ({
                           </TableCell>
                         );
                       })}
+                      <TableCell align="right">מחק עמודה</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {dataArr.map((subRow, subRowIndex) => {
+                    {(dataArr ? dataArr : []).map((subRow, subRowIndex) => {
                       return (
                         <TableRow
                           key={subRowIndex}
@@ -86,17 +108,49 @@ const ExpandedTab = ({
                             let renderElement = <div>שגיאה</div>;
                             switch (subColumn.type) {
                               case "select":
+                                renderElement = (
+                                  <SelectTabInput
+                                    rowId={data.id as string}
+                                    columnId={col.id}
+                                    subRowIndex={subRowIndex}
+                                    subColumnId={subColumn.id}
+                                    data={subRow[subColumn.id]}
+                                    changeHandler={dispatchRows}
+                                    options={
+                                      subColumn.options ? subColumn.options : []
+                                    }
+                                  />
+                                );
                                 break;
                               case "multi-row":
+                                renderElement = (
+                                  <TextAreaTabInput
+                                    rowId={data.id as string}
+                                    columnId={col.id}
+                                    subRowIndex={subRowIndex}
+                                    subColumnId={subColumn.id}
+                                    data={subRow[subColumn.id]}
+                                    changeHandler={dispatchRows}
+                                  />
+                                );
                                 break;
                               case "date":
+                                renderElement = (
+                                  <DateTabInput
+                                    rowId={data.id as string}
+                                    columnId={col.id}
+                                    subRowIndex={subRowIndex}
+                                    subColumnId={subColumn.id}
+                                    data={subRow[subColumn.id]}
+                                    changeHandler={dispatchRows}
+                                  />
+                                );
                                 break;
                               default:
                                 // text is default
                                 renderElement = (
                                   <TextTabInput
                                     rowId={data.id as string}
-                                    rowIndex={rowIndex}
                                     columnId={col.id}
                                     subRowIndex={subRowIndex}
                                     subColumnId={subColumn.id}
@@ -112,6 +166,22 @@ const ExpandedTab = ({
                               </TableCell>
                             );
                           })}
+                          <TableCell align="right">
+                            <Button
+                              variant={"contained"}
+                              color={"error"}
+                              onClick={() => {
+                                dispatchRows({
+                                  type: "removeTab",
+                                  rowId: data.id as string,
+                                  columnId: col.id,
+                                  subRowIndex: subRowIndex,
+                                });
+                              }}
+                            >
+                              מחק
+                            </Button>
+                          </TableCell>
                         </TableRow>
                       );
                     })}

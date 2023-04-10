@@ -1,8 +1,10 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
+import DatePicker from "react-datepicker";
 import { TextTabInputProps } from "../../../Shared/Types/TabInputs";
+import styles from "./cssOverrides.module.css";
 
-const TextTabInput = (props: TextTabInputProps) => {
+const DateTabInput = (props: TextTabInputProps) => {
   const {
     rowId,
     rowIndex,
@@ -19,16 +21,12 @@ const TextTabInput = (props: TextTabInputProps) => {
 
   //   using mui input i can make a text input
   return (
-    <TextField
-      size="medium"
-      id="outlined"
-      value={temporaryValue}
-      label=""
-      variant="outlined"
-      onChange={(e) => {
-        setTemporaryValue(e.target.value);
+    <DatePicker
+      selected={temporaryValue ? new Date(temporaryValue) : new Date()}
+      onChange={(date: Date) => {
+        setTemporaryValue(date.toISOString());
       }}
-      onBlur={(e) => {
+      onBlur={(e: any) => {
         changeHandler({
           type: "changeTab",
           rowId,
@@ -38,8 +36,13 @@ const TextTabInput = (props: TextTabInputProps) => {
           value: e.target.value,
         });
       }}
+      className={styles.DatePickerElement}
+      dateFormat="dd/MM/yyyy"
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
     />
   );
 };
 
-export default React.memo(TextTabInput);
+export default React.memo(DateTabInput);

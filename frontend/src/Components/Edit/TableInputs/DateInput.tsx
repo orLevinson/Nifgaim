@@ -1,7 +1,6 @@
 import { TextField } from "@mui/material";
 import React, { useCallback, useState } from "react";
 import { TextInputProps } from "../../../Shared/Types/TableInputs";
-// i guess typescript doesn't like this library very much ):
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./cssOverrides.module.css";
@@ -16,7 +15,7 @@ const DateInput = (props: TextInputProps) => {
     (date: Date) => {
       changeHandler({
         type: "changeRow",
-        rowIndex,
+        rowId,
         columnId,
         value: date.toISOString(),
       });
@@ -24,7 +23,7 @@ const DateInput = (props: TextInputProps) => {
     [rowIndex, columnId]
   );
 
-  //   using mui input i can make a text input
+  //   using react-datePicker i can make a date input
   return (
     <DatePicker
       selected={data ? new Date(data) : new Date()}
@@ -33,6 +32,10 @@ const DateInput = (props: TextInputProps) => {
       }}
       dateFormat="dd/MM/yyyy"
       className={styles.DatePickerElement}
+      showMonthDropdown
+      showYearDropdown
+      dropdownMode="select"
+      withPortal
     />
   );
 };

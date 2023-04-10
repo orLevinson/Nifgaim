@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { TextTabInputProps } from "../../../Shared/Types/TabInputs";
 
-const TextTabInput = (props: TextTabInputProps) => {
+const TextAreaTabInput = (props: TextTabInputProps) => {
   const {
     rowId,
     rowIndex,
@@ -24,6 +24,7 @@ const TextTabInput = (props: TextTabInputProps) => {
       id="outlined"
       value={temporaryValue}
       label=""
+      multiline
       variant="outlined"
       onChange={(e) => {
         setTemporaryValue(e.target.value);
@@ -42,4 +43,4 @@ const TextTabInput = (props: TextTabInputProps) => {
   );
 };
 
-export default React.memo(TextTabInput);
+export default React.memo(TextAreaTabInput);

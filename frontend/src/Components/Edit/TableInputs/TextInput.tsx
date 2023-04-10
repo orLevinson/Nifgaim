@@ -10,7 +10,7 @@ const TextInput = (props: TextInputProps) => {
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       changeHandler({
         type: "changeRow",
-        rowIndex,
+        rowId,
         columnId,
         value: e.target.value,
       });
@@ -36,6 +36,9 @@ const TextInput = (props: TextInputProps) => {
       variant="outlined"
       onChange={(e) => {
         optimizedChangeFunction(e);
+      }}
+      onClick={() => {
+        console.log(rowId, rowIndex, columnId, data);
       }}
     />
   );

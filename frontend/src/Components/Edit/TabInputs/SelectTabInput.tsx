@@ -1,8 +1,8 @@
-import { TextField } from "@mui/material";
-import React, { useState } from "react";
-import { TextTabInputProps } from "../../../Shared/Types/TabInputs";
+import { MenuItem, Select } from "@mui/material";
+import React from "react";
+import { SelectTabInputProps } from "../../../Shared/Types/TabInputs";
 
-const TextTabInput = (props: TextTabInputProps) => {
+const SelectTabInput = (props: SelectTabInputProps) => {
   const {
     rowId,
     rowIndex,
@@ -10,25 +10,21 @@ const TextTabInput = (props: TextTabInputProps) => {
     subColumnId,
     subRowIndex,
     data,
+    options,
     changeHandler,
   } = props;
-
-  const [temporaryValue, setTemporaryValue] = useState(data ? data : "");
 
   //   to get to where the data we have to do state[rowIndex][columnId]
 
   //   using mui input i can make a text input
   return (
-    <TextField
+    <Select
       size="medium"
       id="outlined"
-      value={temporaryValue}
+      value={data}
       label=""
       variant="outlined"
       onChange={(e) => {
-        setTemporaryValue(e.target.value);
-      }}
-      onBlur={(e) => {
         changeHandler({
           type: "changeTab",
           rowId,
@@ -38,8 +34,16 @@ const TextTabInput = (props: TextTabInputProps) => {
           value: e.target.value,
         });
       }}
-    />
+    >
+      {options.map((option, index) => {
+        return (
+          <MenuItem key={index} value={option}>
+            {option}
+          </MenuItem>
+        );
+      })}
+    </Select>
   );
 };
 
-export default React.memo(TextTabInput);
+export default React.memo(SelectTabInput);

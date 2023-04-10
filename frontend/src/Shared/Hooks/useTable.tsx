@@ -8,9 +8,16 @@ import TextInput from "../../Components/Edit/TableInputs/TextInput";
 import TextAreaInput from "../../Components/Edit/TableInputs/TextAreaInput";
 import DateInput from "../../Components/Edit/TableInputs/DateInput";
 import SelectInput from "../../Components/Edit/TableInputs/SelectInput";
+import { Button } from "@mui/material";
 
 const useTable = () => {
   const columnsGenerator: columnsGeneratorType = (fields, changeHandler) => {
+    const sizes = {
+      big: "300px",
+      medium: "220px",
+      small: "150px",
+    };
+
     let columns: any = [];
     // options for each field
     // "text" | "multi-row" | "select" | "date" | "multi-attributes"
@@ -18,18 +25,21 @@ const useTable = () => {
       switch (field.type) {
         case "date":
           columns.push({
-            cell: (row: any, index: number, column: any) => (
-              <DateInput
-                changeHandler={changeHandler}
-                rowId={row.id}
-                rowIndex={index}
-                columnId={field.id}
-                data={row[field.id]}
-              />
-            ),
+            cell: (row: any, index: number, column: any, id: string) => {
+              console.log(id);
+              return (
+                <DateInput
+                  changeHandler={changeHandler}
+                  rowId={row.id}
+                  rowIndex={index}
+                  columnId={field.id}
+                  data={row[field.id]}
+                />
+              );
+            },
             name: field.name,
             sortable: true,
-            width: "auto",
+            width: sizes[field.width ? field.width : "big"],
           });
           break;
         case "multi-attributes":
@@ -38,7 +48,7 @@ const useTable = () => {
               Array.isArray(row[field.id]) ? row[field.id].length : "לא הוזן",
             name: field.name,
             sortable: true,
-            width: "auto",
+            width: sizes[field.width ? field.width : "big"],
           });
           break;
         case "select":
@@ -55,7 +65,7 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
-            width: "auto",
+            width: sizes[field.width ? field.width : "big"],
           });
           break;
         case "multi-row":
@@ -71,7 +81,7 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
-            width: "auto",
+            width: sizes[field.width ? field.width : "big"],
           });
           break;
         default:
@@ -87,11 +97,28 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
-            width: "auto",
+            width: sizes[field.width ? field.width : "big"],
           });
           break;
       }
     });
+    columns.push({
+      cell: (row: any, index: number, column: any) => (
+        <Button
+          onClick={() => {
+            changeHandler({ type: "removeRow", rowId: row.id });
+          }}
+          color={"error"}
+          variant={"contained"}
+        >
+          מחק
+        </Button>
+      ),
+      name: "מחק שורה",
+      sortable: false,
+      width: "auto",
+    });
+
     return columns;
   };
 
@@ -100,23 +127,32 @@ const useTable = () => {
     action
   ) => {
     let shallowCopy = [...state];
+    let rowIndex: number = -1;
+    if (action.rowId) {
+      rowIndex = shallowCopy.findIndex((row) => row.id === action.rowId);
+      if (rowIndex === -1) {
+        return shallowCopy;
+      }
+    }
+
     switch (action.type) {
       case "addRow":
-        return [...shallowCopy, {}];
+        const uuid = new Date().getTime();
+        return [...shallowCopy, { id: "" + uuid }];
         break;
       case "removeRow":
-        if (action.rowIndex !== undefined) {
-          shallowCopy.splice(action.rowIndex, 1);
+        if (rowIndex !== undefined) {
+          shallowCopy.splice(rowIndex, 1);
         }
         return shallowCopy;
         break;
       case "changeRow":
         if (
-          action.rowIndex !== undefined &&
-          shallowCopy[action.rowIndex] &&
+          rowIndex !== undefined &&
+          shallowCopy[rowIndex] &&
           action.columnId
         ) {
-          shallowCopy[action.rowIndex][action.columnId] = action.value
+          shallowCopy[rowIndex][action.columnId] = action.value
             ? action.value
             : "";
         }
@@ -124,30 +160,27 @@ const useTable = () => {
         break;
       case "addTab":
         if (
-          action.rowIndex !== undefined &&
-          shallowCopy[action.rowIndex] &&
+          rowIndex !== undefined &&
+          shallowCopy[rowIndex] &&
           action.columnId
         ) {
-          const currentValue = shallowCopy[action.rowIndex][action.columnId];
+          const currentValue = shallowCopy[rowIndex][action.columnId];
           if (!Array.isArray(currentValue)) {
-            shallowCopy[action.rowIndex][action.columnId] = [{}];
+            shallowCopy[rowIndex][action.columnId] = [{}];
           } else {
-            shallowCopy[action.rowIndex][action.columnId] = [
-              ...currentValue,
-              {},
-            ];
+            shallowCopy[rowIndex][action.columnId] = [...currentValue, {}];
           }
           return shallowCopy;
         }
         break;
       case "removeTab":
         if (
-          action.rowIndex !== undefined &&
-          shallowCopy[action.rowIndex] &&
+          rowIndex !== undefined &&
+          shallowCopy[rowIndex] &&
           action.columnId &&
-          action.subRowIndex
+          action.subRowIndex !== undefined
         ) {
-          const currentValue = shallowCopy[action.rowIndex][action.columnId];
+          const currentValue = shallowCopy[rowIndex][action.columnId];
           if (Array.isArray(currentValue)) {
             currentValue.splice(action.subRowIndex, 1);
           }
@@ -156,14 +189,14 @@ const useTable = () => {
         break;
       default:
         if (
-          action.rowIndex !== undefined &&
-          shallowCopy[action.rowIndex] &&
+          rowIndex !== undefined &&
+          shallowCopy[rowIndex] &&
           action.columnId &&
-          action.subRowIndex &&
+          action.subRowIndex !== undefined &&
           action.subColumnId &&
-          Array.isArray(shallowCopy[action.rowIndex][action.columnId])
+          Array.isArray(shallowCopy[rowIndex][action.columnId])
         ) {
-          const currentValue = shallowCopy[action.rowIndex][action.columnId];
+          const currentValue = shallowCopy[rowIndex][action.columnId];
           if (Array.isArray(currentValue) && currentValue[action.subRowIndex]) {
             currentValue[action.subRowIndex][action.subColumnId] = action.value
               ? action.value
