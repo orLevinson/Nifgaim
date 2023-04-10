@@ -5,15 +5,8 @@ import { TextTabInputProps } from "../../../Shared/Types/TabInputs";
 import styles from "./cssOverrides.module.css";
 
 const DateTabInput = (props: TextTabInputProps) => {
-  const {
-    rowId,
-    rowIndex,
-    columnId,
-    subColumnId,
-    subRowIndex,
-    data,
-    changeHandler,
-  } = props;
+  const { rowId, columnId, subColumnId, subRowIndex, data, changeHandler } =
+    props;
 
   const [temporaryValue, setTemporaryValue] = useState(data ? data : "");
 

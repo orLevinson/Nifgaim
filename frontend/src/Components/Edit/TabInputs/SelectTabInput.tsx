@@ -5,7 +5,6 @@ import { SelectTabInputProps } from "../../../Shared/Types/TabInputs";
 const SelectTabInput = (props: SelectTabInputProps) => {
   const {
     rowId,
-    rowIndex,
     columnId,
     subColumnId,
     subRowIndex,
