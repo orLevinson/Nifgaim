@@ -86,7 +86,17 @@ const Card = ({
           <MenuItem value={"medium"}>אורך שורה בינוני</MenuItem>
           <MenuItem value={"big"}>אורך שורה ארוך</MenuItem>
         </Select>
-        <Button sx={{ py: "16.5px" }} color={"error"} variant={"contained"}>
+        <Button
+          sx={{ py: "16.5px" }}
+          onClick={() => {
+            columnsDispatcher({
+              type: "removeCol",
+              colId: col.id,
+            });
+          }}
+          color={"error"}
+          variant={"contained"}
+        >
           מחק סעיף
         </Button>
         {col.type === "select" && (

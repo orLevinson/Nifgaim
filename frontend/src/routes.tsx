@@ -1,5 +1,6 @@
 import Edit from "./Pages/Edit";
 import EditAttributes from "./Pages/EditAttributes";
+import EditPerms from "./Pages/EditPerms";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 
@@ -49,8 +50,8 @@ export const adminPermRoutes = [
     page: <></>,
   },
   {
-    name: "ניהול עץ מבנה",
+    name: "ניהול הרשאות",
     url: "/editUnits",
-    page: <></>,
+    page: <EditPerms></EditPerms>,
   },
 ];

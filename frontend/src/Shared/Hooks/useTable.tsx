@@ -10,8 +10,13 @@ import DateInput from "../../Components/Edit/TableInputs/DateInput";
 import SelectInput from "../../Components/Edit/TableInputs/SelectInput";
 import { Button } from "@mui/material";
 import columnsReducer from "../Types/Columns";
+import { commands } from "../../fields";
+import { useContext } from "react";
+import GlobalCtx from "../Context/GlobalCtx";
 
 const useTable = () => {
+  const { perms } = useContext(GlobalCtx);
+
   const columnsGenerator: columnsGeneratorType = (fields, changeHandler) => {
     const sizes = {
       big: "300px",
@@ -22,6 +27,26 @@ const useTable = () => {
     let columns: any = [];
     // options for each field
     // "text" | "multi-row" | "select" | "date" | "multi-attributes"
+    columns.push({
+      cell: (row: any, index: number, column: any) => (
+        <SelectInput
+          changeHandler={changeHandler}
+          rowId={row.id}
+          rowIndex={index}
+          columnId={"perm"}
+          data={row.perm}
+          options={perms}
+        />
+      ),
+      name: "הרשאה",
+      sortable: false,
+      sortFunction: (rowA: any, rowB: any) => {
+        const stringA = rowA.perm ? rowA.perm : "";
+        const stringB = rowB.perm ? rowB.perm : "";
+        return stringA.localeCompare(stringB);
+      },
+      width: "medium",
+    });
     fields.forEach((field: Fields) => {
       switch (field.type) {
         case "date":
@@ -182,7 +207,7 @@ const useTable = () => {
     switch (action.type) {
       case "addRow":
         const uuid = new Date().getTime();
-        return [...shallowCopy, { id: "" + uuid }];
+        return [...shallowCopy, { id: "" + uuid, perm: commands[0] }];
         break;
       case "removeRow":
         if (rowIndex !== undefined) {

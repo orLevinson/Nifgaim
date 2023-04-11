@@ -3,10 +3,14 @@ import Fields from "./Fields";
 
 // for the columns
 export type columnsType = {
+  id: string;
+  perm: string;
   [key: string]: string | { [key: string]: string }[];
 };
 
 export type dataType = {
+  id: string;
+  perm: string;
   [key: string]:
     | string
     | {

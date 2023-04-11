@@ -1,6 +1,7 @@
 import Fields from "./Shared/Types/Fields";
+import { dataType } from "./Shared/Types/Table";
 
-const commands = ["פיקוד צפון", "פיקוד דרום", "פיקוד מרכז"];
+export const commands = ["פיקוד צפון", "פיקוד דרום", "פיקוד מרכז"];
 
 export const fieldsExample: Fields[] = [
   {
@@ -89,7 +90,7 @@ export const fieldsExample: Fields[] = [
     name: "שייך לקהילה מיוחדת?",
     type: "select",
     children: [],
-    options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים",],
+    options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
     width: "medium",
   },
   {
@@ -113,13 +114,10 @@ export const fieldsExample: Fields[] = [
 export const exampleData = (fields: Fields[]) => {
   const data = [];
   for (let i = 0; i < 20; i++) {
-    const newEntry: {
-      [key: string]:
-        | string
-        | {
-            [key: string]: string;
-          }[];
-    } = { id: `${i}-${Math.random()}` };
+    const newEntry: dataType = {
+      id: `${i}-${Math.random()}`,
+      perm: commands[Math.floor(Math.random() * commands.length)],
+    };
 
     fields.forEach((field) => {
       let res:

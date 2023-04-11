@@ -6,7 +6,7 @@ const UserCtx = createContext({
   name: "",
   canEdit: false,
   canView: false,
-  command: [],
+  perms: [],
   isAdmin: false,
 });
 
