@@ -28,6 +28,14 @@ export const fieldsExample: Fields[] = [
     width: "small",
   },
   {
+    id: "2.asdfasdfa",
+    name: "תאריך לידה של הסבתא",
+    type: "date",
+    children: [],
+    options: [],
+    width: "small",
+  },
+  {
     id: "3",
     name: "פיקוד",
     type: "text",

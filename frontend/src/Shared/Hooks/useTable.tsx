@@ -36,6 +36,22 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
+            sortFunction: (rowA: any, rowB: any) => {
+              const dateA = rowA[field.id]
+                ? new Date(rowA[field.id])
+                : new Date();
+              const dateB = rowB[field.id]
+                ? new Date(rowB[field.id])
+                : new Date();
+
+              if (dateA.getTime() > dateB.getTime()) {
+                return 1;
+              }
+              if (dateA.getTime() < dateB.getTime()) {
+                return -1;
+              }
+              return 0;
+            },
             width: sizes[field.width ? field.width : "big"],
           });
           break;
@@ -45,6 +61,21 @@ const useTable = () => {
               Array.isArray(row[field.id]) ? row[field.id].length : "לא הוזן",
             name: field.name,
             sortable: true,
+            sortFunction: (rowA: any, rowB: any) => {
+              const ArrA = Array.isArray(rowA[field.id])
+                ? rowA[field.id].length
+                : -1;
+              const ArrB = Array.isArray(rowB[field.id])
+                ? rowB[field.id].length
+                : -1;
+              if (ArrA > ArrB) {
+                return 1;
+              }
+              if (ArrA < ArrB) {
+                return -1;
+              }
+              return 0;
+            },
             width: sizes[field.width ? field.width : "big"],
           });
           break;
@@ -62,6 +93,11 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
+            sortFunction: (rowA: any, rowB: any) => {
+              const stringA = rowA[field.id] ? rowA[field.id] : "";
+              const stringB = rowB[field.id] ? rowB[field.id] : "";
+              return stringA.localeCompare(stringB);
+            },
             width: sizes[field.width ? field.width : "big"],
           });
           break;
@@ -78,6 +114,11 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
+            sortFunction: (rowA: any, rowB: any) => {
+              const stringA = rowA[field.id] ? rowA[field.id] : "";
+              const stringB = rowB[field.id] ? rowB[field.id] : "";
+              return stringA.localeCompare(stringB);
+            },
             width: sizes[field.width ? field.width : "big"],
           });
           break;
@@ -94,6 +135,11 @@ const useTable = () => {
             ),
             name: field.name,
             sortable: true,
+            sortFunction: (rowA: any, rowB: any) => {
+              const stringA = rowA[field.id] ? rowA[field.id] : "";
+              const stringB = rowB[field.id] ? rowB[field.id] : "";
+              return stringA.localeCompare(stringB);
+            },
             width: sizes[field.width ? field.width : "big"],
           });
           break;

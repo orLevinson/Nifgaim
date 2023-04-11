@@ -28,8 +28,8 @@ const TextAreaInput = (props: TextInputProps) => {
         "& .MuiInputBase-input": { padding: 0, cursor: "pointer" },
         "& .MuiInputBase-input:focus": { cursor: "text" },
         "& .MuiOutlinedInput-notchedOutline": { border: "none" },
-        "& .MuiOutlinedInput-notchedOutline:focus": {
-          border: "solid 1px black",
+        "& .Mui-focused .MuiOutlinedInput-notchedOutline": {
+          border: "solid 1px black!important",
         },
       }}
       label=""

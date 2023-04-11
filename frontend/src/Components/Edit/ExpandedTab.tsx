@@ -34,7 +34,7 @@ const ExpandedTab = ({
 
   return (
     <div style={{ width: "90vw" }}>
-      {/* for each column */}
+      {/* for each column that need to be expanded create a tab */}
       {expandedCols.map((col, columnIndex) => {
         const dataArr: {
           [key: string]: string;
@@ -94,6 +94,7 @@ const ExpandedTab = ({
                     </TableRow>
                   </TableHead>
                   <TableBody>
+                    {/* for each array that holds data */}
                     {(dataArr ? dataArr : []).map((subRow, subRowIndex) => {
                       return (
                         <TableRow
@@ -104,6 +105,7 @@ const ExpandedTab = ({
                             },
                           }}
                         >
+                          {/* for each expanded columns create an input of the same nature and fill the data from the inputs*/}
                           {col.children?.map((subColumn, subColumnIndex) => {
                             let renderElement = <div>שגיאה</div>;
                             switch (subColumn.type) {
@@ -188,12 +190,6 @@ const ExpandedTab = ({
                   </TableBody>
                 </Table>
               </TableContainer>
-              {/* <p> */}
-              {/* for each child(type of entry in the expanded column) create an input that will have the same value as the data given */}
-              {/* {col.children?.map((entry) => {
-                        return <Input value={row[entry.id]} />;
-                      })} */}
-              {/* </p> */}
             </>
           </Container>
         );
