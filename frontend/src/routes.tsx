@@ -1,4 +1,5 @@
 import Edit from "./Pages/Edit";
+import EditAttributes from "./Pages/EditAttributes";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 
@@ -40,11 +41,11 @@ export const adminPermRoutes = [
   {
     name: "עריכת סעיפים",
     url: "/editAttributes",
-    page: <></>,
+    page: <EditAttributes></EditAttributes>,
   },
   {
     name: "ניהול משתמשים",
-    url: "/editAttributes",
+    url: "/editUsers",
     page: <></>,
   },
   {

@@ -89,7 +89,7 @@ export const fieldsExample: Fields[] = [
     name: "שייך לקהילה מיוחדת?",
     type: "select",
     children: [],
-    options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים"],
+    options: ["עבריים", "שומרונים", "בדואיים", "שומרוניים",],
     width: "medium",
   },
   {

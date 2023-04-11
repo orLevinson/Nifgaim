@@ -6,6 +6,7 @@ import {
   publicRoutes,
   viewPermRoutes,
 } from "./routes";
+import DataCtxProvider from "./Shared/Context/DataCtxProvider";
 import UserCtx from "./Shared/Context/UserCtx";
 import Navbar from "./Shared/UIElements/Navbar";
 
@@ -30,12 +31,14 @@ function App() {
   return (
     <div className="App">
       {showNav && <Navbar routes={routeList} />}
-      <Routes>
-        {routeList.map((route, index) => {
-          return <Route key={index} path={route.url} element={route.page} />;
-        })}
-        <Route path="*" element={<></>} />
-      </Routes>
+      <DataCtxProvider>
+        <Routes>
+          {routeList.map((route, index) => {
+            return <Route key={index} path={route.url} element={route.page} />;
+          })}
+          <Route path="*" element={<></>} />
+        </Routes>
+      </DataCtxProvider>
     </div>
   );
 }

@@ -95,98 +95,102 @@ const ExpandedTab = ({
                   </TableHead>
                   <TableBody>
                     {/* for each array that holds data */}
-                    {(dataArr ? dataArr : []).map((subRow, subRowIndex) => {
-                      return (
-                        <TableRow
-                          key={subRowIndex}
-                          sx={{
-                            "&:last-child td, &:last-child th": {
-                              border: 0,
-                            },
-                          }}
-                        >
-                          {/* for each expanded columns create an input of the same nature and fill the data from the inputs*/}
-                          {col.children?.map((subColumn, subColumnIndex) => {
-                            let renderElement = <div>שגיאה</div>;
-                            switch (subColumn.type) {
-                              case "select":
-                                renderElement = (
-                                  <SelectTabInput
-                                    rowId={data.id as string}
-                                    columnId={col.id}
-                                    subRowIndex={subRowIndex}
-                                    subColumnId={subColumn.id}
-                                    data={subRow[subColumn.id]}
-                                    changeHandler={dispatchRows}
-                                    options={
-                                      subColumn.options ? subColumn.options : []
-                                    }
-                                  />
-                                );
-                                break;
-                              case "multi-row":
-                                renderElement = (
-                                  <TextAreaTabInput
-                                    rowId={data.id as string}
-                                    columnId={col.id}
-                                    subRowIndex={subRowIndex}
-                                    subColumnId={subColumn.id}
-                                    data={subRow[subColumn.id]}
-                                    changeHandler={dispatchRows}
-                                  />
-                                );
-                                break;
-                              case "date":
-                                renderElement = (
-                                  <DateTabInput
-                                    rowId={data.id as string}
-                                    columnId={col.id}
-                                    subRowIndex={subRowIndex}
-                                    subColumnId={subColumn.id}
-                                    data={subRow[subColumn.id]}
-                                    changeHandler={dispatchRows}
-                                  />
-                                );
-                                break;
-                              default:
-                                // text is default
-                                renderElement = (
-                                  <TextTabInput
-                                    rowId={data.id as string}
-                                    columnId={col.id}
-                                    subRowIndex={subRowIndex}
-                                    subColumnId={subColumn.id}
-                                    data={subRow[subColumn.id]}
-                                    changeHandler={dispatchRows}
-                                  />
-                                );
-                                break;
-                            }
-                            return (
-                              <TableCell align="right" key={subColumnIndex}>
-                                {renderElement}
-                              </TableCell>
-                            );
-                          })}
-                          <TableCell align="right">
-                            <Button
-                              variant={"contained"}
-                              color={"error"}
-                              onClick={() => {
-                                dispatchRows({
-                                  type: "removeTab",
-                                  rowId: data.id as string,
-                                  columnId: col.id,
-                                  subRowIndex: subRowIndex,
-                                });
-                              }}
-                            >
-                              מחק
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
+                    {(dataArr && Array.isArray(dataArr) ? dataArr : []).map(
+                      (subRow, subRowIndex) => {
+                        return (
+                          <TableRow
+                            key={subRowIndex}
+                            sx={{
+                              "&:last-child td, &:last-child th": {
+                                border: 0,
+                              },
+                            }}
+                          >
+                            {/* for each expanded columns create an input of the same nature and fill the data from the inputs*/}
+                            {col.children?.map((subColumn, subColumnIndex) => {
+                              let renderElement = <div>שגיאה</div>;
+                              switch (subColumn.type) {
+                                case "select":
+                                  renderElement = (
+                                    <SelectTabInput
+                                      rowId={data.id as string}
+                                      columnId={col.id}
+                                      subRowIndex={subRowIndex}
+                                      subColumnId={subColumn.id}
+                                      data={subRow[subColumn.id]}
+                                      changeHandler={dispatchRows}
+                                      options={
+                                        subColumn.options
+                                          ? subColumn.options
+                                          : []
+                                      }
+                                    />
+                                  );
+                                  break;
+                                case "multi-row":
+                                  renderElement = (
+                                    <TextAreaTabInput
+                                      rowId={data.id as string}
+                                      columnId={col.id}
+                                      subRowIndex={subRowIndex}
+                                      subColumnId={subColumn.id}
+                                      data={subRow[subColumn.id]}
+                                      changeHandler={dispatchRows}
+                                    />
+                                  );
+                                  break;
+                                case "date":
+                                  renderElement = (
+                                    <DateTabInput
+                                      rowId={data.id as string}
+                                      columnId={col.id}
+                                      subRowIndex={subRowIndex}
+                                      subColumnId={subColumn.id}
+                                      data={subRow[subColumn.id]}
+                                      changeHandler={dispatchRows}
+                                    />
+                                  );
+                                  break;
+                                default:
+                                  // text is default
+                                  renderElement = (
+                                    <TextTabInput
+                                      rowId={data.id as string}
+                                      columnId={col.id}
+                                      subRowIndex={subRowIndex}
+                                      subColumnId={subColumn.id}
+                                      data={subRow[subColumn.id]}
+                                      changeHandler={dispatchRows}
+                                    />
+                                  );
+                                  break;
+                              }
+                              return (
+                                <TableCell align="right" key={subColumnIndex}>
+                                  {renderElement}
+                                </TableCell>
+                              );
+                            })}
+                            <TableCell align="right">
+                              <Button
+                                variant={"contained"}
+                                color={"error"}
+                                onClick={() => {
+                                  dispatchRows({
+                                    type: "removeTab",
+                                    rowId: data.id as string,
+                                    columnId: col.id,
+                                    subRowIndex: subRowIndex,
+                                  });
+                                }}
+                              >
+                                מחק
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      }
+                    )}
                   </TableBody>
                 </Table>
               </TableContainer>

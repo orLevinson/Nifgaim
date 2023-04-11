@@ -23,10 +23,15 @@ const DateInput = (props: TextInputProps) => {
     [rowIndex, columnId]
   );
 
+  function isValidDate(value: string) {
+    const date = new Date(value);
+    return !isNaN(date.getTime());
+  }
+
   //   using react-datePicker i can make a date input
   return (
     <DatePicker
-      selected={data ? new Date(data) : new Date()}
+      selected={data && isValidDate(data) ? new Date(data) : new Date()}
       onChange={(date: Date) => {
         optimizedChangeFunction(date);
       }}
