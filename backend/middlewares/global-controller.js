@@ -1,9 +1,9 @@
-const Global = require("../models/global");
 const express = require("express");
 const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");
 
 const HttpError = require("../models/http-error");
+const Global = require("../models/global");
 
 const checkForGlobalDoc = async (req, res, next) => {
   let global;

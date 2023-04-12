@@ -7,6 +7,8 @@ const { checkForGlobalDoc } = require("./middlewares/global-controller");
 
 const globalRoutes = require("./routes/global-routes");
 const usersRoutes = require("./routes/users-routes");
+const attributesRoutes = require("./routes/attributes-routes");
+const rowsRoutes = require("./routes/rows-routes");
 
 const app = express();
 
@@ -34,6 +36,8 @@ app.use(checkForGlobalDoc);
 // routes
 app.use("/api/perms", globalRoutes);
 app.use("/api/users", usersRoutes);
+app.use("/api/attributes", attributesRoutes);
+app.use("/api/rows", rowsRoutes);
 
 // if none of the mentioned routes above were called
 app.use((req, res, next) => {

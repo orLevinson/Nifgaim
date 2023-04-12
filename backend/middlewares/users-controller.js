@@ -175,7 +175,7 @@ const getUsers = async (req, res, next) => {
 
   res.json({
     success: true,
-    users: users,
+    users: users.map((user) => user.toObject({ getters: true })),
   });
 };
 
