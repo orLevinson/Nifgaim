@@ -1,6 +1,7 @@
 import { Button, InputAdornment, TextField } from "@mui/material";
 import React, { useContext } from "react";
 import GlobalCtx from "../Shared/Context/GlobalCtx";
+import LoadingPage from "../Shared/UIElements/LoadingPage";
 
 const EditPerms = () => {
   const { perms, changePerms, permsLoaded } = useContext(GlobalCtx);
@@ -10,12 +11,13 @@ const EditPerms = () => {
       <div
         style={{
           width: "90%",
+          height: "500px",
           margin: "auto",
           marginTop: 30,
           marginBottom: 30,
         }}
       >
-        <h1>הרשאות בטעינה</h1>
+        <LoadingPage />
       </div>
     );
   }

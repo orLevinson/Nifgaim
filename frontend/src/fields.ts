@@ -1,5 +1,6 @@
 import Fields from "./Shared/Types/Fields";
 import { dataType } from "./Shared/Types/Table";
+import { exampleUsers, user } from "./Shared/Types/Users";
 
 export const commands = ["פיקוד צפון", "פיקוד דרום", "פיקוד מרכז"];
 
@@ -164,4 +165,18 @@ export const exampleData = (fields: Fields[]) => {
     data.push(newEntry);
   }
   return data;
+};
+
+export const exampleUsersHandler: exampleUsers = () => {
+  const users: user[] = [];
+  for (let i = 0; i < 20; i++) {
+    users.push({
+      id: i + "",
+      name: "משתמש מס' " + (i + 1),
+      canEdit: false,
+      perms: ["פיקוד צפון", "פיקוד מרכז"],
+      isAdmin: false,
+    });
+  }
+  return users;
 };

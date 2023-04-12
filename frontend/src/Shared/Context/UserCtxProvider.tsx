@@ -7,7 +7,6 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
     id: "",
     name: "",
     canEdit: true,
-    canView: false,
     perms: [],
     isAdmin: true,
   });
