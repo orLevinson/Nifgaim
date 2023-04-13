@@ -1,4 +1,3 @@
-const Global = require("../models/global");
 const express = require("express");
 const mongoose = require("mongoose");
 const { validationResult } = require("express-validator");

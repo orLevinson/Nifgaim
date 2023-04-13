@@ -1,2 +1,4 @@
-need to create with detail master - mui x data table a way to show multi-attribute
-need to make the table editable - with date and select 
+- make authorization for the backend
+- make the select in the table multiple
+- make add multiple rows option in frontend
+- make add multiple attribute option

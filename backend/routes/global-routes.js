@@ -1,7 +1,9 @@
 const express = require("express");
 const { check } = require("express-validator");
 
+const checkAuth = require("../middlewares/check-auth");
 const globalController = require("../middlewares/global-controller");
+const authorizationController = require("../middlewares/authorization-controller");
 
 const router = express.Router();
 
@@ -9,7 +11,14 @@ const router = express.Router();
 router.get("/", globalController.getPerms);
 
 // only admins able to preform this
+router.use(checkAuth);
+
 // req : { perms : any[] }
-router.post("/", [check("perms").isArray()], globalController.postPerms);
+router.post(
+  "/",
+  [check("perms").isArray()],
+  authorizationController.isAdmin,
+  globalController.postPerms
+);
 
 module.exports = router;

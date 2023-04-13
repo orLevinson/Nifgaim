@@ -6,9 +6,9 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
     token: "",
     id: "",
     name: "",
-    canEdit: true,
+    canEdit: false,
     perms: [],
-    isAdmin: true,
+    isAdmin: false,
   });
 
   return <UserCtx.Provider value={values}>{props.children}</UserCtx.Provider>;

@@ -1,7 +1,9 @@
 const express = require("express");
 const { check } = require("express-validator");
 
+const checkAuth = require("../middlewares/check-auth");
 const attributesController = require("../middlewares/attributes-controller");
+const authorizationController = require("../middlewares/authorization-controller");
 
 const router = express.Router();
 
@@ -9,10 +11,12 @@ const router = express.Router();
 router.get("/", attributesController.getAttributes);
 
 // only admins able to preform this
+router.use(checkAuth);
 
 // add a new attribute
 router.post(
   "/",
+  authorizationController.isAdmin,
   [check("number").isNumeric()],
   attributesController.addAttribute
 );
@@ -21,6 +25,7 @@ router.post(
 // can crash if name === ""
 router.patch(
   "/:aid",
+  authorizationController.isAdmin,
   [
     check("type").not().isEmpty(),
     check("children").isArray(),
@@ -31,6 +36,10 @@ router.patch(
 );
 
 // delete a attribute
-router.delete("/:aid", attributesController.deleteAttribute);
+router.delete(
+  "/:aid",
+  authorizationController.isAdmin,
+  attributesController.deleteAttribute
+);
 
 module.exports = router;

@@ -18,14 +18,6 @@ export const publicRoutes = [
   },
 ];
 
-export const viewPermRoutes = [
-  {
-    name: "צפייה בנתונים",
-    url: "/viewOnly",
-    page: <></>,
-  },
-];
-
 export const editPermRoutes = [
   {
     name: "עריכת נתונים",

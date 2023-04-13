@@ -322,7 +322,7 @@ const useTable = () => {
           ...shallowCopy,
           {
             id: new Date().getTime() + "",
-            name: "",
+            name: "שם",
             type: "text",
             width: "big",
             options: [],

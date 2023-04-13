@@ -7,8 +7,7 @@ const Row = require("../models/row");
 
 const getRows = async (req, res, next) => {
   // will get to this middleware after checking if canEdit = true
-  const perm = ["פצן"];
-  const isAdmin = true;
+  const { perm, isAdmin } = req.userData;
 
   let filter = isAdmin ? {} : { perm: { $in: perm } };
   let rows = [];
@@ -33,7 +32,8 @@ const addRows = async (req, res, next) => {
     );
   }
 
-  const { number, perm } = req.body;
+  const { number } = req.body;
+  const { perm } = req.userData;
   const documents = [];
 
   // Create the specified number of documents
@@ -69,12 +69,15 @@ const changeRow = async (req, res, next) => {
   }
 
   const { perm, ...additionalAttributes } = req.body;
+  const { perm: userPerm, isAdmin } = req.userData;
   const rowId = req.params.rid;
+
+  filter = isAdmin ? { _id: rowId } : { _id: rowId, perm: { $in: userPerm } };
 
   let row;
   try {
     row = await Row.findOneAndUpdate(
-      { _id: rowId },
+      filter,
       { perm, $set: additionalAttributes },
       { new: true } // return the updated document
     );
@@ -85,20 +88,20 @@ const changeRow = async (req, res, next) => {
 
   res.json({
     success: true,
-    row: row.toObject({ getters: true }),
+    row: row ? row.toObject({ getters: true }) : row,
   });
 };
 
 const deleteRow = async (req, res, next) => {
+  const { perm, isAdmin } = req.userData;
   const rowId = req.params.rid;
 
+  filter = isAdmin ? { _id: rowId } : { _id: rowId, perm: { $in: perm } };
+
   try {
-    await Row.deleteOne({ _id: rowId });
+    await Row.deleteOne(filter);
   } catch (err) {
-    const error = new HttpError(
-      "Deleting Row failed, please try again",
-      500
-    );
+    const error = new HttpError("Deleting Row failed, please try again", 500);
     return next(error);
   }
 

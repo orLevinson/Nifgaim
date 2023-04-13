@@ -1,7 +1,9 @@
 const express = require("express");
 const { check } = require("express-validator");
 
+const checkAuth = require("../middlewares/check-auth");
 const usersController = require("../middlewares/users-controller");
+const authorizationController = require("../middlewares/authorization-controller");
 
 const router = express.Router();
 
@@ -34,7 +36,9 @@ router.post(
 
 // only admins able to preform this
 // get all the users
-router.get("/", usersController.getUsers);
+router.use(checkAuth);
+
+router.get("/", authorizationController.isAdmin, usersController.getUsers);
 
 // alter a user
 // req: {
@@ -45,6 +49,7 @@ router.get("/", usersController.getUsers);
 // }
 router.patch(
   "/:uid",
+  authorizationController.isAdmin,
   [
     check("name").not().isEmpty(),
     check("canEdit").isBoolean(),
@@ -55,6 +60,10 @@ router.patch(
 );
 
 // delete a user
-router.delete("/:uid", usersController.deleteUser);
+router.delete(
+  "/:uid",
+  authorizationController.isAdmin,
+  usersController.deleteUser
+);
 
 module.exports = router;
