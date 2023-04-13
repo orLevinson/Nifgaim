@@ -200,6 +200,7 @@ export default function SignUp() {
               color="secondary"
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={!permsLoaded}
             >
               הרשמה
             </Button>

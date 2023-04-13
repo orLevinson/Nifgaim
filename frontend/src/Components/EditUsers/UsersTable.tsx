@@ -18,10 +18,14 @@ const UsersTable = ({
   users,
   perm,
   changeUsers,
+  changeUserFn,
+  deleteUserFn,
 }: {
   users: user[];
   perm: string[];
   changeUsers: React.Dispatch<React.SetStateAction<user[]>>;
+  changeUserFn: (id: string, data: user) => Promise<user>;
+  deleteUserFn: (id: string) => Promise<{ success: boolean }>;
 }) => {
   return (
     <div
@@ -62,6 +66,9 @@ const UsersTable = ({
                     label={"הרשאות"}
                     multiple
                     value={user.perm}
+                    onBlur={() => {
+                      changeUserFn(user.id, user);
+                    }}
                     onChange={(e) => {
                       changeUsers((prev) => {
                         const shallowCopy = [...prev];
@@ -86,6 +93,9 @@ const UsersTable = ({
                 <TableCell align="right">
                   <Checkbox
                     checked={user.canEdit}
+                    onBlur={() => {
+                      changeUserFn(user.id, user);
+                    }}
                     onChange={() => {
                       changeUsers((prev) => {
                         const shallowCopy = [...prev];
@@ -99,6 +109,9 @@ const UsersTable = ({
                 <TableCell align="right">
                   <Checkbox
                     checked={user.isAdmin}
+                    onBlur={() => {
+                      changeUserFn(user.id, user);
+                    }}
                     onChange={() => {
                       changeUsers((prev) => {
                         const shallowCopy = [...prev];
@@ -119,6 +132,7 @@ const UsersTable = ({
                         shallowCopy.splice(userIndex, 1);
                         return shallowCopy;
                       });
+                      deleteUserFn(user.id);
                     }}
                   >
                     מחק

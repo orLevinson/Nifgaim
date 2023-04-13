@@ -2,18 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import UsersTable from "../Components/EditUsers/UsersTable";
 import { exampleUsersHandler } from "../fields";
 import GlobalCtx from "../Shared/Context/GlobalCtx";
+import useUsers from "../Shared/Hooks/useUsers";
 import { user } from "../Shared/Types/Users";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
 
 const EditUsers = () => {
   const { perm, permsLoaded } = useContext(GlobalCtx);
-  const [users, setUsers] = useState<user[]>([]);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setUsers(exampleUsersHandler());
-    setLoaded(true);
-  }, [setUsers, setLoaded]);
+  const { loaded, setUsers, users, changeUser, deleteUser } = useUsers();
 
   if (!permsLoaded || !loaded) {
     return (
@@ -44,7 +39,13 @@ const EditUsers = () => {
         }}
       >
         <h1>עריכת משתמשים</h1>
-        <UsersTable users={users} perm={perm} changeUsers={setUsers} />
+        <UsersTable
+          users={users}
+          perm={perm}
+          changeUsers={setUsers}
+          changeUserFn={changeUser}
+          deleteUserFn={deleteUser}
+        />
       </div>
     </div>
   );

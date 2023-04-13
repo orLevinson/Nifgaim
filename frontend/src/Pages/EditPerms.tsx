@@ -4,7 +4,7 @@ import GlobalCtx from "../Shared/Context/GlobalCtx";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
 
 const EditPerms = () => {
-  const { perm, changePerms, permsLoaded } = useContext(GlobalCtx);
+  const { perm, changePerms, permsLoaded, post } = useContext(GlobalCtx);
 
   if (!permsLoaded) {
     return (
@@ -66,7 +66,7 @@ const EditPerms = () => {
             marginTop: "20px",
           }}
         >
-          {perm.map((perm, permIndex) => {
+          {perm.map((permData, permIndex) => {
             return (
               <div
                 key={permIndex}
@@ -80,7 +80,11 @@ const EditPerms = () => {
               >
                 <TextField
                   size="small"
-                  value={perm}
+                  value={permData}
+                  onBlur={() => {
+                    console.log(perm);
+                    post([...perm]);
+                  }}
                   onChange={(e) => {
                     changePerms({
                       type: "changePerm",

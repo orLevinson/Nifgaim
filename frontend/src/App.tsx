@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { adminPermRoutes, editPermRoutes, publicRoutes } from "./routes";
 import DataCtxProvider from "./Shared/Context/DataCtxProvider";
 import UserCtx from "./Shared/Context/UserCtx";
+import LoadingIcon from "./Shared/UIElements/LoadingIcon";
 import Navbar from "./Shared/UIElements/Navbar";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           })}
           <Route path="*" element={<></>} />
         </Routes>
+        <LoadingIcon />
       </DataCtxProvider>
     </div>
   );

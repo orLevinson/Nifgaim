@@ -13,11 +13,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <ThemeProvider theme={theme}>
       <LoadingCtxProvider>
-        <GlobalCtxProvider>
-          <UserCtxProvider>
+        <UserCtxProvider>
+          <GlobalCtxProvider>
             <App />
-          </UserCtxProvider>
-        </GlobalCtxProvider>
+          </GlobalCtxProvider>
+        </UserCtxProvider>
       </LoadingCtxProvider>
     </ThemeProvider>
   </BrowserRouter>

@@ -4,6 +4,7 @@ export type user = {
   canEdit: boolean;
   perm: string[];
   isAdmin: boolean;
+  _id?: string;
 };
 
 export interface userInfo extends user {

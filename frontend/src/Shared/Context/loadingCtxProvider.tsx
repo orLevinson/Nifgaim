@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useCallback, useState } from "react";
 import LoadingCtx from "./loadingCtx";
 
 const LoadingCtxProvider = (props: { children: ReactNode }) => {
@@ -8,25 +8,24 @@ const LoadingCtxProvider = (props: { children: ReactNode }) => {
     statusMsg: "",
   });
 
-  const clearError = () => {
+  const clearError = useCallback(() => {
     setLoadingState({
       isLoading: false,
       error: false,
       statusMsg: "",
     });
-  };
+  }, [setLoadingState]);
 
-  const setLoading = (
-    isLoading: boolean,
-    error: boolean,
-    statusMsg?: string
-  ) => {
-    setLoadingState({
-      isLoading,
-      error,
-      statusMsg: statusMsg ? statusMsg : "",
-    });
-  };
+  const setLoading = useCallback(
+    (isLoading: boolean, error: boolean, statusMsg?: string) => {
+      setLoadingState({
+        isLoading,
+        error,
+        statusMsg: statusMsg ? statusMsg : "",
+      });
+    },
+    [setLoadingState]
+  );
 
   return (
     <LoadingCtx.Provider

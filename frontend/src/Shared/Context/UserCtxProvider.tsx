@@ -34,6 +34,7 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
         username,
         password,
       },
+      customErrorMsg: "ההתחברות נכשלה, אנא בדוק את הערכים שהזנת ונסה שנית",
     });
 
     if (!result.success) {
@@ -87,6 +88,7 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
         name,
         perm,
       },
+      customErrorMsg: "ההרשמה נכשלה, אנא נסה שנית",
     });
 
     if (!result.success) {

@@ -7,6 +7,7 @@ export type httpReqType = {
     [key: string]: string;
   };
   body?: any;
+  customErrorMsg?: string;
 };
 
 export type parsedRes = {
