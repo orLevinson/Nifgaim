@@ -1,4 +1,5 @@
 import { Button, MenuItem, Select, TextField } from "@mui/material";
+import useTable from "../../Shared/Hooks/useTable";
 import columnsReducer from "../../Shared/Types/Columns";
 import Fields from "../../Shared/Types/Fields";
 import SelectAttribute from "./SelectAttribute";
@@ -10,6 +11,8 @@ const MultiAttribute = ({
   col: Fields;
   columnsDispatcher: React.Dispatch<columnsReducer>;
 }) => {
+  const { changeColumn } = useTable();
+
   return (
     <div
       style={{
@@ -39,6 +42,9 @@ const MultiAttribute = ({
                   InputLabelProps={{
                     shrink: true,
                   }}
+                  onBlur={() => {
+                    changeColumn(col.id, col);
+                  }}
                   onChange={(e) => {
                     columnsDispatcher({
                       type: "changeSubColTitle",
@@ -50,6 +56,9 @@ const MultiAttribute = ({
                 />
                 <Select
                   value={subCol.type}
+                  onBlur={() => {
+                    changeColumn(col.id, col);
+                  }}
                   onChange={(e) => {
                     columnsDispatcher({
                       type: "changeSubColType",
@@ -84,6 +93,9 @@ const MultiAttribute = ({
                     sx={{ py: "16.5px" }}
                     color={"success"}
                     variant={"contained"}
+                    onBlur={() => {
+                      changeColumn(col.id, col);
+                    }}
                     onClick={() => {
                       columnsDispatcher({
                         type: "addSubColOption",
@@ -99,6 +111,7 @@ const MultiAttribute = ({
               {subCol.type === "select" && (
                 <SelectAttribute
                   col={subCol}
+                  colData={col}
                   colId={col.id}
                   subColIndex={subColIndex}
                   isSubColSelect={true}

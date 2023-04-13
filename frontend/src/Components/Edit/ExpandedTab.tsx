@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
+import useTable from "../../Shared/Hooks/useTable";
 import Fields from "../../Shared/Types/Fields";
 import { dataType, reducerActionType } from "../../Shared/Types/Table";
 import DateTabInput from "./TabInputs/DateTabInput";
@@ -59,7 +60,7 @@ const ExpandedTab = ({
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  justifyContent: "center",
+                  justifyContent: "space-between",
                   gap: "10px",
                 }}
               >

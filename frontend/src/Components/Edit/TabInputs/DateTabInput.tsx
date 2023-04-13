@@ -8,8 +8,6 @@ const DateTabInput = (props: TextTabInputProps) => {
   const { rowId, columnId, subColumnId, subRowIndex, data, changeHandler } =
     props;
 
-  const [temporaryValue, setTemporaryValue] = useState(data ? data : "");
-
   //   to get to where the data we have to do state[rowIndex][columnId]
   function isValidDate(value: string) {
     const date = new Date(value);
@@ -18,22 +16,15 @@ const DateTabInput = (props: TextTabInputProps) => {
   //   using mui input i can make a text input
   return (
     <DatePicker
-      selected={
-        temporaryValue && isValidDate(temporaryValue)
-          ? new Date(temporaryValue)
-          : new Date()
-      }
+      selected={data && isValidDate(data) ? new Date(data) : new Date()}
       onChange={(date: Date) => {
-        setTemporaryValue(date.toISOString());
-      }}
-      onBlur={(e: any) => {
         changeHandler({
           type: "changeTab",
           rowId,
           columnId,
           subRowIndex,
           subColumnId,
-          value: e.target.value,
+          value: date.toISOString(),
         });
       }}
       className={styles.DatePickerElement}

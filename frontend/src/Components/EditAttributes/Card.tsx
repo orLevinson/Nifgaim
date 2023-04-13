@@ -5,6 +5,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import useTable from "../../Shared/Hooks/useTable";
 import columnsReducer from "../../Shared/Types/Columns";
 import Fields from "../../Shared/Types/Fields";
 import MultiAttribute from "./MultiAttribute";
@@ -19,6 +20,8 @@ const Card = ({
   colIndex: number;
   columnsDispatcher: React.Dispatch<columnsReducer>;
 }) => {
+  const { changeColumn, deleteColumn } = useTable();
+
   return (
     <div
       key={colIndex}
@@ -46,6 +49,9 @@ const Card = ({
           InputLabelProps={{
             shrink: true,
           }}
+          onBlur={() => {
+            changeColumn(col.id, col);
+          }}
           onChange={(e) => {
             columnsDispatcher({
               type: "changeColTitle",
@@ -56,6 +62,9 @@ const Card = ({
         />
         <Select
           value={col.type}
+          onBlur={() => {
+            changeColumn(col.id, col);
+          }}
           onChange={(e) => {
             columnsDispatcher({
               type: "changeColType",
@@ -73,6 +82,9 @@ const Card = ({
         </Select>
         <Select
           value={col.width ? col.width : "big"}
+          onBlur={() => {
+            changeColumn(col.id, col);
+          }}
           onChange={(e) => {
             columnsDispatcher({
               type: "changeColSize",
@@ -88,7 +100,8 @@ const Card = ({
         </Select>
         <Button
           sx={{ py: "16.5px" }}
-          onClick={() => {
+          onClick={async () => {
+            await deleteColumn(col.id);
             columnsDispatcher({
               type: "removeCol",
               colId: col.id,
@@ -102,6 +115,9 @@ const Card = ({
         {col.type === "select" && (
           <Button
             sx={{ py: "16.5px" }}
+            onBlur={() => {
+              changeColumn(col.id, col);
+            }}
             onClick={() => {
               columnsDispatcher({
                 type: "addColOption",
@@ -118,6 +134,9 @@ const Card = ({
           <Button
             sx={{ py: "16.5px" }}
             color={"success"}
+            onBlur={() => {
+              changeColumn(col.id, col);
+            }}
             onClick={() => {
               columnsDispatcher({
                 type: "addSubCol",

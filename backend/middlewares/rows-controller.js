@@ -20,7 +20,7 @@ const getRows = async (req, res, next) => {
 
   res.json({
     success: true,
-    rows: rows.map((row) => row.toObject({ getters: true })),
+    rows: rows.map((row) => row.toObject({ getters: true })).reverse(),
   });
 };
 

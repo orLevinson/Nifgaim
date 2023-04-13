@@ -117,7 +117,8 @@ export const exampleData = (fields: Fields[]) => {
   for (let i = 0; i < 20; i++) {
     const newEntry: dataType = {
       id: `${i}-${Math.random()}`,
-      perm: commands[Math.floor(Math.random() * commands.length)],
+      _id: "as",
+      perm: commands.join("~"),
     };
 
     fields.forEach((field) => {

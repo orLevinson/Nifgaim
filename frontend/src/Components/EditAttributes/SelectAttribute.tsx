@@ -1,4 +1,5 @@
 import { Button, InputAdornment, TextField } from "@mui/material";
+import useTable from "../../Shared/Hooks/useTable";
 import columnsReducer from "../../Shared/Types/Columns";
 import Fields from "../../Shared/Types/Fields";
 
@@ -8,13 +9,17 @@ const SelectAttribute = ({
   subColIndex,
   columnsDispatcher,
   isSubColSelect,
+  colData,
 }: {
   col: Fields;
   colId: string;
   subColIndex?: number;
   columnsDispatcher: React.Dispatch<columnsReducer>;
   isSubColSelect?: Boolean;
+  colData?: Fields;
 }) => {
+  const { changeColumn } = useTable();
+
   return (
     <div
       style={{
@@ -42,6 +47,13 @@ const SelectAttribute = ({
               <TextField
                 size="small"
                 value={option}
+                onBlur={() => {
+                  if (colData) {
+                    changeColumn(colData.id, colData);
+                  } else {
+                    changeColumn(col.id, col);
+                  }
+                }}
                 onChange={(e) => {
                   columnsDispatcher({
                     type: isSubColSelect

@@ -8,11 +8,13 @@ const DataCtx = createContext<{
   columns: Fields[];
   rowsDispatcher: React.Dispatch<reducerActionType>;
   columnsDispatcher: React.Dispatch<columnsReducer>;
+  loadingData: boolean;
 }>({
   rows: [],
   columns: [],
   rowsDispatcher: () => {},
   columnsDispatcher: () => {},
+  loadingData: true,
 });
 
 export default DataCtx;

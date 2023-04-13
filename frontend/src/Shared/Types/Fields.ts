@@ -1,5 +1,6 @@
 type Fields = {
   id: string;
+  _id?: string;
   name: string;
   type: "text" | "multi-row" | "select" | "date" | "multi-attributes";
   children?: {

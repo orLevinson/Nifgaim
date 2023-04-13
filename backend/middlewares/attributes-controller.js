@@ -109,7 +109,10 @@ const deleteAttribute = async (req, res, next) => {
   try {
     await Attribute.deleteOne({ _id: attributeId });
   } catch (err) {
-    const error = new HttpError("Deleting Attribute failed, please try again", 500);
+    const error = new HttpError(
+      "Deleting Attribute failed, please try again",
+      500
+    );
     return next(error);
   }
 

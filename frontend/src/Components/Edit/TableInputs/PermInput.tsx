@@ -1,31 +1,27 @@
-import { MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import React, { useCallback, useContext } from "react";
+import GlobalCtx from "../../../Shared/Context/GlobalCtx";
 import useTable from "../../../Shared/Hooks/useTable";
-import { SelectInputProps } from "../../../Shared/Types/TableInputs";
+import { PermInputProps } from "../../../Shared/Types/TableInputs";
 
-const SelectInput = (props: SelectInputProps) => {
-  const {
-    rowId,
-    rowData,
-    rowIndex,
-    columnId,
-    data,
-    options = [],
-    changeHandler,
-  } = props;
+const PermInput = (props: PermInputProps) => {
+  const { rowId, data, rowData, changeHandler } = props;
+  const { perm } = useContext(GlobalCtx);
   //   to get to where the data we have to do state[rowIndex][columnId]
   const { changeData } = useTable();
 
   const optimizedChangeFunction = useCallback(
-    (e: SelectChangeEvent<string>) => {
+    (e: SelectChangeEvent<string | string[]>) => {
       changeHandler({
         type: "changeRow",
         rowId,
-        columnId,
-        value: e.target.value,
+        columnId: "perm",
+        value: Array.isArray(e.target.value)
+          ? e.target.value.join("~")
+          : e.target.value,
       });
     },
-    [rowId, columnId]
+    [rowId]
   );
 
   //   using mui select i can make a select input
@@ -33,7 +29,7 @@ const SelectInput = (props: SelectInputProps) => {
     <Select
       size="small"
       id="outlined"
-      value={data ? data : ""}
+      value={data ? data.split("~") : [""]}
       sx={{
         "& .MuiInputBase-input": { padding: 1, cursor: "pointer" },
         "& .MuiInputBase-input:focus": { cursor: "text" },
@@ -44,6 +40,7 @@ const SelectInput = (props: SelectInputProps) => {
       }}
       label=""
       multiline
+      multiple
       variant="outlined"
       onBlur={() => {
         changeData(rowId, rowData);
@@ -52,7 +49,7 @@ const SelectInput = (props: SelectInputProps) => {
         optimizedChangeFunction(e);
       }}
     >
-      {options.map((option, index) => {
+      {perm.map((option, index) => {
         return (
           <MenuItem key={index} value={option}>
             {option}
@@ -63,4 +60,4 @@ const SelectInput = (props: SelectInputProps) => {
   );
 };
 
-export default React.memo(SelectInput);
+export default React.memo(PermInput);

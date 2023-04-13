@@ -1,5 +1,8 @@
+import Fields from "./Fields";
+
 type columnsReducer = {
   type:
+    | "init"
     | "addCol"
     | "removeCol"
     | "changeColType"
@@ -15,6 +18,8 @@ type columnsReducer = {
     | "addSubColOption"
     | "removeSubColOption"
     | "changeSubColOption";
+  initData?: Fields[];
+  addColArr?: string[];
   colId?: string;
   colOptionIndex?: number;
   subColIndex?: number;

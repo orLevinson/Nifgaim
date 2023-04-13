@@ -1,4 +1,4 @@
-import { reducerActionType } from "./Table";
+import { dataType, reducerActionType } from "./Table";
 
 export type TextTabInputProps = {
   rowId: string;
