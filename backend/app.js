@@ -66,9 +66,7 @@ app.use((error, req, res, next) => {
 
 mongoose
   //Procces.env is given from nodemon.json
-  .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.b0cnhuq.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
-  )
+  .connect(`${process.env.DB_URL}`)
   .then(() => {
     app.listen(process.env.PORT || 5000);
     console.log("connected");

@@ -3,6 +3,7 @@
     "DB_USER": "tutututi",
     "DB_PASSWORD": "goodpassword123",
     "DB_NAME": "Nifgaim",
-    "JWT_KEY": "Ve1rayImp134ortant_PRoj1ect21312REEe13253121"
+    "JWT_KEY": "Ve1rayImp134ortant_PRoj1ect21312REEe13253121",
+    "DB_URL": "mongodb+srv://tutututi:goodpassword123@cluster0.b0cnhuq.mongodb.net/Nifgaim?retryWrites=true&w=majority"
   }
 }
