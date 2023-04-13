@@ -15,7 +15,7 @@ const checkForGlobalDoc = async (req, res, next) => {
   }
   if (!global || global.length === 0) {
     const globalDoc = new Global({
-      perms: [],
+      perm: [],
     });
     try {
       await globalDoc.save();
@@ -43,7 +43,7 @@ const getPerms = async (req, res, next) => {
 
   res.json({
     success: true,
-    perms: global.perms,
+    perm: global.perm,
   });
 };
 
@@ -68,7 +68,7 @@ const postPerms = async (req, res, next) => {
     return next(error);
   }
 
-  global.perms = req.body.perms.map(String);
+  global.perm = req.body.perm.map(String);
 
   try {
     await global.save();
@@ -79,7 +79,7 @@ const postPerms = async (req, res, next) => {
 
   res.json({
     success: true,
-    perms: global.perms,
+    perm: global.perm,
   });
 };
 

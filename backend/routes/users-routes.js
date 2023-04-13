@@ -22,14 +22,14 @@ router.post(
 // req: {
 // username : string;
 // password : string;
-// perms : string[];
+// perm: string[];
 // name : string;
 // }
 router.post(
   "/register",
   check("username").not().isEmpty(),
   check("password").not().isEmpty(),
-  check("perms").isArray(),
+  check("perm").isArray(),
   check("name").not().isEmpty(),
   usersController.register
 );
@@ -44,7 +44,7 @@ router.get("/", authorizationController.isAdmin, usersController.getUsers);
 // req: {
 // name : string;
 // canEdit : boolean;
-// perms : string[];
+// perm : string[];
 // isAdmin : boolean;
 // }
 router.patch(
@@ -54,7 +54,7 @@ router.patch(
     check("name").not().isEmpty(),
     check("canEdit").isBoolean(),
     check("isAdmin").isBoolean(),
-    check("perms").isArray(),
+    check("perm").isArray(),
   ],
   usersController.patchUser
 );

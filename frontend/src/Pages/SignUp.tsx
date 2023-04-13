@@ -12,6 +12,8 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import Banner from "../Assets/LoginBanner.webp";
+import GlobalCtx from "../Shared/Context/GlobalCtx";
+import UserCtx from "../Shared/Context/UserCtx";
 
 function Copyright(props: any) {
   return (
@@ -29,17 +31,44 @@ function Copyright(props: any) {
 
 export default function SignUp() {
   const navigate = useNavigate();
+  const { perm, permsLoaded } = React.useContext(GlobalCtx);
+  const { register } = React.useContext(UserCtx);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("username"),
-      username: data.get("username"),
-      password: data.get("password"),
-    });
-    navigate("/edit");
+
+    if (!permsLoaded) {
+      return;
+    }
+
+    if (
+      registerState.name.length === 0 ||
+      registerState.username.length === 0 ||
+      registerState.password.length === 0
+    ) {
+      return;
+    }
+
+    register(
+      registerState.username,
+      registerState.password,
+      registerState.perm,
+      registerState.name
+    );
+
+    navigate("/");
   };
+  const [registerState, setRegisterState] = React.useState<{
+    name: string;
+    username: string;
+    password: string;
+    perm: string[];
+  }>({
+    name: "",
+    username: "",
+    password: "",
+    perm: [],
+  });
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -91,6 +120,14 @@ export default function SignUp() {
               name="name"
               autoComplete="name"
               autoFocus
+              value={registerState.name}
+              onChange={(e) => {
+                setRegisterState((prev) => {
+                  const shallowCopy = { ...prev };
+                  shallowCopy.name = e.target.value;
+                  return shallowCopy;
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -101,6 +138,14 @@ export default function SignUp() {
               name="username"
               autoComplete="username"
               autoFocus
+              value={registerState.username}
+              onChange={(e) => {
+                setRegisterState((prev) => {
+                  const shallowCopy = { ...prev };
+                  shallowCopy.username = e.target.value;
+                  return shallowCopy;
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -111,21 +156,42 @@ export default function SignUp() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={registerState.password}
+              onChange={(e) => {
+                setRegisterState((prev) => {
+                  const shallowCopy = { ...prev };
+                  shallowCopy.password = e.target.value;
+                  return shallowCopy;
+                });
+              }}
             />
             <FormControl fullWidth margin="normal">
-              <InputLabel id="demo-simple-select-label">Age</InputLabel>
+              <InputLabel id="demo-simple-select-label">הרשאות</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={10}
-                label="Age"
+                multiple
+                label="הרשאות"
                 required
                 fullWidth
-                onChange={() => {}}
+                value={registerState.perm}
+                onChange={(e) => {
+                  setRegisterState((prev) => {
+                    const shallowCopy = { ...prev };
+                    shallowCopy.perm = Array.isArray(e.target.value)
+                      ? e.target.value
+                      : [e.target.value];
+                    return shallowCopy;
+                  });
+                }}
               >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {perm.map((permItem, permIndex) => {
+                  return (
+                    <MenuItem key={permIndex} value={permItem}>
+                      {permItem}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
             <Button

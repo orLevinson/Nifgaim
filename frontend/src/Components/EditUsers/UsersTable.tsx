@@ -16,11 +16,11 @@ import { user } from "../../Shared/Types/Users";
 
 const UsersTable = ({
   users,
-  perms,
+  perm,
   changeUsers,
 }: {
   users: user[];
-  perms: string[];
+  perm: string[];
   changeUsers: React.Dispatch<React.SetStateAction<user[]>>;
 }) => {
   return (
@@ -61,11 +61,11 @@ const UsersTable = ({
                   <Select
                     label={"הרשאות"}
                     multiple
-                    value={user.perms}
+                    value={user.perm}
                     onChange={(e) => {
                       changeUsers((prev) => {
                         const shallowCopy = [...prev];
-                        shallowCopy[userIndex].perms = Array.isArray(
+                        shallowCopy[userIndex].perm = Array.isArray(
                           e.target.value
                         )
                           ? e.target.value
@@ -74,7 +74,7 @@ const UsersTable = ({
                       });
                     }}
                   >
-                    {perms.map((perm, permIndex) => {
+                    {perm.map((perm, permIndex) => {
                       return (
                         <MenuItem key={permIndex} value={perm}>
                           {perm}

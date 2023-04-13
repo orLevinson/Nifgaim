@@ -68,7 +68,7 @@ const login = async (req, res, next) => {
     token,
     name: user.name,
     id: user._id,
-    perms: user.perms,
+    perm: user.perm,
     isAdmin: user.isAdmin,
     canEdit: user.canEdit,
   });
@@ -82,7 +82,7 @@ const register = async (req, res, next) => {
     );
   }
 
-  const { name, password, username, perms } = req.body;
+  const { name, password, username, perm } = req.body;
 
   // check if a user with the same username has already registered
   let user;
@@ -118,7 +118,7 @@ const register = async (req, res, next) => {
     name,
     password: hashedPassword,
     username,
-    perms,
+    perm,
     canEdit: false,
     isAdmin: false,
   });
@@ -157,7 +157,7 @@ const register = async (req, res, next) => {
     token,
     name: newUser.name,
     id: newUser._id,
-    perms: newUser.perms,
+    perm: newUser.perm,
     isAdmin: newUser.isAdmin,
     canEdit: newUser.canEdit,
   });
@@ -166,7 +166,7 @@ const register = async (req, res, next) => {
 const getUsers = async (req, res, next) => {
   let users = [];
   try {
-    users = await User.find({}, "name _id perms isAdmin canEdit");
+    users = await User.find({}, "name _id perm isAdmin canEdit");
   } catch (err) {
     const error = new HttpError("getting users failed, please try again", 500);
     return next(error);
@@ -188,14 +188,14 @@ const patchUser = async (req, res, next) => {
 
   const UserId = req.params.uid;
 
-  const { name, canEdit, isAdmin, perms } = req.body;
+  const { name, canEdit, isAdmin, perm } = req.body;
 
   let user;
 
   try {
     user = await User.findOneAndUpdate(
       { _id: UserId },
-      { $set: { name, canEdit, isAdmin, perms: perms.map(String) } }
+      { $set: { name, canEdit, isAdmin, perm: perm.map(String) } }
     );
   } catch (err) {
     const error = new HttpError("Patching User failed, please try again", 500);
@@ -212,7 +212,7 @@ const patchUser = async (req, res, next) => {
     name,
     canEdit,
     isAdmin,
-    perms: perms.map(String),
+    perm: perm.map(String),
     id: user._id,
   });
 };

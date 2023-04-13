@@ -6,8 +6,11 @@ const UserCtx = createContext<userCtx>({
   id: "",
   name: "",
   canEdit: false,
-  perms: [],
+  perm: [],
   isAdmin: false,
+  login: async (username, password) => {},
+  logout: () => {},
+  register: async (username, password, perm, name) => {},
 });
 
 export default UserCtx;

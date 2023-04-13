@@ -13,10 +13,10 @@ router.get("/", globalController.getPerms);
 // only admins able to preform this
 router.use(checkAuth);
 
-// req : { perms : any[] }
+// req : { perm : any[] }
 router.post(
   "/",
-  [check("perms").isArray()],
+  [check("perm").isArray()],
   authorizationController.isAdmin,
   globalController.postPerms
 );

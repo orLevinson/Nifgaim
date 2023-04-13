@@ -15,7 +15,7 @@ import { useContext } from "react";
 import GlobalCtx from "../Context/GlobalCtx";
 
 const useTable = () => {
-  const { perms } = useContext(GlobalCtx);
+  const { perm } = useContext(GlobalCtx);
 
   const columnsGenerator: columnsGeneratorType = (fields, changeHandler) => {
     const sizes = {
@@ -35,7 +35,7 @@ const useTable = () => {
           rowIndex={index}
           columnId={"perm"}
           data={row.perm}
-          options={perms}
+          options={perm}
         />
       ),
       name: "הרשאה",
@@ -207,7 +207,7 @@ const useTable = () => {
     switch (action.type) {
       case "addRow":
         const uuid = new Date().getTime();
-        return [...shallowCopy, { id: "" + uuid, perm: commands[0] }];
+        return [{ id: "" + uuid, perm: commands[0] }, ...shallowCopy];
         break;
       case "removeRow":
         if (rowIndex !== undefined) {

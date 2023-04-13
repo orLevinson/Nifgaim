@@ -6,7 +6,7 @@ import { user } from "../Shared/Types/Users";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
 
 const EditUsers = () => {
-  const { perms, permsLoaded } = useContext(GlobalCtx);
+  const { perm, permsLoaded } = useContext(GlobalCtx);
   const [users, setUsers] = useState<user[]>([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -44,7 +44,7 @@ const EditUsers = () => {
         }}
       >
         <h1>עריכת משתמשים</h1>
-        <UsersTable users={users} perms={perms} changeUsers={setUsers} />
+        <UsersTable users={users} perm={perm} changeUsers={setUsers} />
       </div>
     </div>
   );

@@ -2,11 +2,11 @@ import React, { createContext } from "react";
 import { globalReducerType } from "../Types/Global";
 
 const GlobalCtx = createContext<{
-  perms: string[];
+  perm: string[];
   changePerms: React.Dispatch<globalReducerType>;
   permsLoaded: boolean;
 }>({
-  perms: [],
+  perm: [],
   changePerms: (value) => {},
   permsLoaded: false,
 });

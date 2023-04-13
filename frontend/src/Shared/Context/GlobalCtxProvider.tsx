@@ -58,7 +58,7 @@ const GlobalCtxProvider = (props: { children: ReactNode }) => {
 
   return (
     <GlobalCtx.Provider
-      value={{ perms: values, changePerms: valuesReducer, permsLoaded: init }}
+      value={{ perm: values, changePerms: valuesReducer, permsLoaded: init }}
     >
       {props.children}
     </GlobalCtx.Provider>

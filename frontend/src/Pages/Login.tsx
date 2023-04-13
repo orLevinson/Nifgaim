@@ -13,6 +13,8 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
 import Banner from "../Assets/LoginBanner.webp";
+import GlobalCtx from "../Shared/Context/GlobalCtx";
+import UserCtx from "../Shared/Context/UserCtx";
 
 function Copyright(props: any) {
   return (
@@ -30,15 +32,26 @@ function Copyright(props: any) {
 
 export default function Login() {
   const navigate = useNavigate();
+  const { login } = React.useContext(UserCtx);
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      username: data.get("username"),
-      password: data.get("password"),
-    });
-    navigate("/edit");
+
+    if (loginState.username.length === 0 || loginState.password.length === 0) {
+      return;
+    }
+
+    login(loginState.username, loginState.password);
+
+    navigate("/");
   };
+  const [loginState, setLoginState] = React.useState<{
+    username: string;
+    password: string;
+  }>({
+    username: "",
+    password: "",
+  });
 
   return (
     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -90,6 +103,14 @@ export default function Login() {
               name="username"
               autoComplete="username"
               autoFocus
+              value={loginState.username}
+              onChange={(e) => {
+                setLoginState((prev) => {
+                  const shallowCopy = { ...prev };
+                  shallowCopy.username = e.target.value;
+                  return shallowCopy;
+                });
+              }}
             />
             <TextField
               margin="normal"
@@ -100,10 +121,14 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="זכור שם משתמש וסיסמא"
+              value={loginState.password}
+              onChange={(e) => {
+                setLoginState((prev) => {
+                  const shallowCopy = { ...prev };
+                  shallowCopy.password = e.target.value;
+                  return shallowCopy;
+                });
+              }}
             />
             <Button
               type="submit"

@@ -174,7 +174,7 @@ export const exampleUsersHandler: exampleUsers = () => {
       id: i + "",
       name: "משתמש מס' " + (i + 1),
       canEdit: false,
-      perms: ["פיקוד צפון", "פיקוד מרכז"],
+      perm: ["פיקוד צפון", "פיקוד מרכז"],
       isAdmin: false,
     });
   }

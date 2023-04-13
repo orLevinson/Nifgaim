@@ -18,9 +18,11 @@ import {
   ListItemText,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import UserCtx from "../Context/UserCtx";
 
 export default function Navbar(props: NavbarProps) {
   const [auth, setAuth] = React.useState(true);
+  const { logout } = React.useContext(UserCtx);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const navigate = useNavigate();
@@ -116,7 +118,7 @@ export default function Navbar(props: NavbarProps) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>התנתק</MenuItem>
+                <MenuItem onClick={logout}>התנתק</MenuItem>
               </Menu>
             </div>
           </Toolbar>

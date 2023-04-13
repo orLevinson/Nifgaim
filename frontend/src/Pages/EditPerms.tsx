@@ -4,7 +4,7 @@ import GlobalCtx from "../Shared/Context/GlobalCtx";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
 
 const EditPerms = () => {
-  const { perms, changePerms, permsLoaded } = useContext(GlobalCtx);
+  const { perm, changePerms, permsLoaded } = useContext(GlobalCtx);
 
   if (!permsLoaded) {
     return (
@@ -66,7 +66,7 @@ const EditPerms = () => {
             marginTop: "20px",
           }}
         >
-          {perms.map((perm, permIndex) => {
+          {perm.map((perm, permIndex) => {
             return (
               <div
                 key={permIndex}
