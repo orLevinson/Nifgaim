@@ -42,8 +42,15 @@ const MultiAttribute = ({
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  onBlur={() => {
-                    changeColumn(col.id, col);
+                  inputProps={{
+                    onKeyDown: (e) => {
+                      if (e.key === "Enter") {
+                        (e.currentTarget as HTMLInputElement).blur(); // blur the input to trigger the onBlur event
+                      }
+                    },
+                    onBlur: () => {
+                      changeColumn(col.id, col);
+                    },
                   }}
                   onChange={(e) => {
                     columnsDispatcher({

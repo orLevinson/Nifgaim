@@ -81,9 +81,15 @@ const EditPerms = () => {
                 <TextField
                   size="small"
                   value={permData}
-                  onBlur={() => {
-                    console.log(perm);
-                    post([...perm]);
+                  inputProps={{
+                    onKeyDown: (e) => {
+                      if (e.key === "Enter") {
+                        (e.currentTarget as HTMLInputElement).blur(); // blur the input to trigger the onBlur event
+                      }
+                    },
+                    onBlur: () => {
+                      post([...perm]);
+                    },
                   }}
                   onChange={(e) => {
                     changePerms({

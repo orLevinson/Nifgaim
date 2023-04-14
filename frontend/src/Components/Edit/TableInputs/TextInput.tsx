@@ -40,6 +40,11 @@ const TextInput = (props: TextInputProps) => {
         onBlur: () => {
           changeData(rowId, rowData);
         },
+        onKeyDown: (e) => {
+          if (e.key === "Enter") {
+            (e.currentTarget as HTMLInputElement).blur(); // blur the input to trigger the onBlur event
+          }
+        },
       }}
       onChange={(e) => {
         optimizedChangeFunction(e);

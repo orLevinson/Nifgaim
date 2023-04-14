@@ -47,12 +47,19 @@ const SelectAttribute = ({
               <TextField
                 size="small"
                 value={option}
-                onBlur={() => {
-                  if (colData) {
-                    changeColumn(colData.id, colData);
-                  } else {
-                    changeColumn(col.id, col);
-                  }
+                inputProps={{
+                  onKeyDown: (e) => {
+                    if (e.key === "Enter") {
+                      (e.currentTarget as HTMLInputElement).blur(); // blur the input to trigger the onBlur event
+                    }
+                  },
+                  onBlur: () => {
+                    if (colData) {
+                      changeColumn(colData.id, colData);
+                    } else {
+                      changeColumn(col.id, col);
+                    }
+                  },
                 }}
                 onChange={(e) => {
                   columnsDispatcher({

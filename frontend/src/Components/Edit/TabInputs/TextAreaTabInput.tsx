@@ -22,15 +22,17 @@ const TextAreaTabInput = (props: TextTabInputProps) => {
       onChange={(e) => {
         setTemporaryValue(e.target.value);
       }}
-      onBlur={(e) => {
-        changeHandler({
-          type: "changeTab",
-          rowId,
-          columnId,
-          subRowIndex,
-          subColumnId,
-          value: e.target.value,
-        });
+      inputProps={{
+        onBlur: (e) => {
+          changeHandler({
+            type: "changeTab",
+            rowId,
+            columnId,
+            subRowIndex,
+            subColumnId,
+            value: e.target.value,
+          });
+        },
       }}
     />
   );
