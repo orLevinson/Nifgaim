@@ -89,7 +89,7 @@ const Edit = () => {
             + הוספת רשומות
           </Button>
           <Button variant={"contained"}>
-            <CSVLink data={GenerateCSV(filteredData())}>ייצוא לCSV</CSVLink>
+            <CSVLink filename={"nifgaim-report.csv"} data={GenerateCSV(filteredData())}>ייצוא לCSV</CSVLink>
           </Button>
         </div>
       </div>
