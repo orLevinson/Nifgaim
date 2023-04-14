@@ -1,6 +1,7 @@
 import React, {
   ReactNode,
   useCallback,
+  useContext,
   useEffect,
   useReducer,
   useState,
@@ -9,12 +10,14 @@ import { exampleData, fieldsExample } from "../../fields";
 import useTable from "../Hooks/useTable";
 import Fields from "../Types/Fields";
 import DataCtx from "./DataCtx";
+import UserCtx from "./UserCtx";
 
 const DataCtxProvider = (props: { children: ReactNode }) => {
   const { reducer, columnsReducer, getColumns, getData } = useTable();
   const [columns, dispatchColumns] = useReducer(columnsReducer, []);
   const [rows, dispatchRows] = useReducer(reducer, []);
   const [loadingData, setLoadingData] = useState(true);
+  const { token, canEdit, isAdmin } = useContext(UserCtx);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,9 +26,11 @@ const DataCtxProvider = (props: { children: ReactNode }) => {
       const dataRow = await getData();
       dispatchRows({ type: "init", initData: dataRow });
     };
-    fetchData();
-    setLoadingData(false);
-  }, [getColumns, columnsReducer]);
+    if (token && token !== "" && (canEdit || isAdmin)) {
+      fetchData();
+      setLoadingData(false);
+    }
+  }, [getColumns, columnsReducer, token, canEdit, isAdmin]);
 
   return (
     <DataCtx.Provider
