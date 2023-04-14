@@ -1,10 +1,11 @@
-import Edit from "./Pages/Edit";
-import EditAttributes from "./Pages/EditAttributes";
-import EditPerms from "./Pages/EditPerms";
-import EditUsers from "./Pages/EditUsers";
-import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp";
-import Welcome from "./Pages/Welcome";
+import React from "react";
+const Edit = React.lazy(() => import("./Pages/Edit"));
+const EditAttributes = React.lazy(() => import("./Pages/EditAttributes"));
+const EditPerms = React.lazy(() => import("./Pages/EditPerms"));
+const EditUsers = React.lazy(() => import("./Pages/EditUsers"));
+const Login = React.lazy(() => import("./Pages/Login"));
+const SignUp = React.lazy(() => import("./Pages/SignUp"));
+const Welcome = React.lazy(() => import("./Pages/Welcome"));
 
 export const publicRoutes = [
   {
