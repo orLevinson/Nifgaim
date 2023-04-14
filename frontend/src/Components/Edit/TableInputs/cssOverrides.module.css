@@ -3,4 +3,8 @@
   border: none;
   background-color: transparent;
   cursor: pointer;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.4375em;
 }

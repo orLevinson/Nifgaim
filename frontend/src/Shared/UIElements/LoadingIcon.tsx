@@ -34,12 +34,15 @@ const LoadingIcon = () => {
             bottom: 10,
             width: 70,
             height: 70,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             padding: "15px!important",
             background: "rgba(225,225,225,0.9)",
             borderRadius: "3px",
           }}
         >
-          <CircularProgress />
+          <CircularProgress size={"40px"} />
         </div>
       );
       break;

@@ -9,6 +9,7 @@ import DataCtx from "../Shared/Context/DataCtx";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
 import { CSVLink } from "react-csv";
 import useCSV from "../Shared/Hooks/useCSV";
+import { cellAndHeaderStyle } from "../cssObjects";
 
 const Edit = () => {
   const { columnsGenerator, addData } = useTable();
@@ -89,7 +90,13 @@ const Edit = () => {
             + הוספת רשומות
           </Button>
           <Button variant={"contained"}>
-            <CSVLink filename={"nifgaim-report.csv"} data={GenerateCSV(filteredData())}>ייצוא לCSV</CSVLink>
+            <CSVLink
+              filename={"nifgaim-report.csv"}
+              style={{ color: "white", textDecoration: "none" }}
+              data={GenerateCSV(filteredData())}
+            >
+              ייצוא לCSV
+            </CSVLink>
           </Button>
         </div>
       </div>
@@ -103,6 +110,34 @@ const Edit = () => {
         pointerOnHover
         responsive
         subHeaderWrap
+        paginationComponentOptions={{
+          rowsPerPageText: "מספר רשומות בעמוד: ",
+          rangeSeparatorText: "מתוך",
+          noRowsPerPage: false,
+          selectAllRowsItem: false,
+          selectAllRowsItemText: "בחר הכל",
+        }}
+        noDataComponent={
+          <div
+            style={{
+              marginTop: 20,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              ...cellAndHeaderStyle,
+            }}
+          >
+            אין עמודות להצגה
+          </div>
+        }
+        customStyles={{
+          cells: {
+            style: cellAndHeaderStyle,
+          },
+          headCells: {
+            style: { ...cellAndHeaderStyle, fontWeight: "bold" },
+          },
+        }}
         expandableRowsComponent={({ data }) => {
           return (
             <ExpandedTab

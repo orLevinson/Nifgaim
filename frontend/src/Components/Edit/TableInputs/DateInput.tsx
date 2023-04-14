@@ -1,10 +1,8 @@
-import { TextField } from "@mui/material";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { TextInputProps } from "../../../Shared/Types/TableInputs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styles from "./cssOverrides.module.css";
-import useTable from "../../../Shared/Hooks/useTable";
 
 // the date is coming as a string so no need for extra prop types - we can recycle the text input's prop types
 const DateInput = (props: TextInputProps) => {

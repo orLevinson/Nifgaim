@@ -1,0 +1,18 @@
+.cardStyle {
+  width: 200px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #b73dcd;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cardStyle:hover {
+    background: #5d1869;
+    transform: translateY(-2px);
+  }
+  

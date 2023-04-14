@@ -72,7 +72,7 @@ export default function Navbar(props: NavbarProps) {
         <AppBar
           position="static"
           color="secondary"
-          sx={{ borderBottomRightRadius: 25, borderBottomLeftRadius: 25 }}
+          sx={{ borderBottomRightRadius: 5, borderBottomLeftRadius: 5 }}
         >
           <Toolbar>
             <IconButton
@@ -88,7 +88,7 @@ export default function Navbar(props: NavbarProps) {
             <Typography
               variant="h5"
               component="div"
-              sx={{ flexGrow: 1, letterSpacing: "5px" }}
+              sx={{ flexGrow: 1, fontWeight: "600", fontFamily: "Heebo" }}
             >
               מערכת נפגעים
             </Typography>

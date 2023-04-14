@@ -176,6 +176,7 @@ const ExpandedTab = ({
                               <Button
                                 variant={"contained"}
                                 color={"error"}
+                                sx={{ py: "16.5px" }}
                                 onClick={() => {
                                   dispatchRows({
                                     type: "removeTab",

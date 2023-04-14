@@ -4,6 +4,7 @@ import EditPerms from "./Pages/EditPerms";
 import EditUsers from "./Pages/EditUsers";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
+import Welcome from "./Pages/Welcome";
 
 export const publicRoutes = [
   {
@@ -20,6 +21,11 @@ export const publicRoutes = [
 
 export const editPermRoutes = [
   {
+    name: "דף הבית",
+    url: "/",
+    page: <Welcome />,
+  },
+  {
     name: "עריכת נתונים",
     url: "/edit",
     page: <Edit />,
@@ -27,6 +33,11 @@ export const editPermRoutes = [
 ];
 
 export const adminPermRoutes = [
+  {
+    name: "דף הבית",
+    url: "/",
+    page: <Welcome />,
+  },
   {
     name: "עריכת נתונים",
     url: "/edit",
