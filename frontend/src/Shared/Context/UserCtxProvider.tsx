@@ -45,8 +45,6 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
 
     setValues(res as userInfo);
 
-    console.log(res);
-
     const oneWeekFromNow = new Date();
     oneWeekFromNow.setDate(oneWeekFromNow.getDate() + 7);
 
@@ -74,7 +72,6 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
       !name ||
       name.length === 0
     ) {
-      console.log("hi");
       return;
     }
 
@@ -128,6 +125,8 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
 
   // auto login if there is an expiration
   useEffect(() => {
+    navigate("/");
+
     const expiration = localStorage.getItem("expiration");
     const token = localStorage.getItem("token");
 
@@ -157,8 +156,6 @@ const UserCtxProvider = (props: { children: ReactNode }) => {
     const canEdit = localStorage.getItem("canEdit");
     const isAdmin = localStorage.getItem("isAdmin");
     const perm = localStorage.getItem("perm");
-
-    console.log(perm ? perm.split(",") : []);
 
     setValues({
       token: token ? token : "",
