@@ -7,6 +7,8 @@ import { Button, TextField } from "@mui/material";
 import { dataType } from "../Shared/Types/Table";
 import DataCtx from "../Shared/Context/DataCtx";
 import LoadingPage from "../Shared/UIElements/LoadingPage";
+import { CSVLink } from "react-csv";
+import useCSV from "../Shared/Hooks/useCSV";
 
 const Edit = () => {
   const { columnsGenerator, addData } = useTable();
@@ -15,6 +17,7 @@ const Edit = () => {
   const { rows, columns, rowsDispatcher, loadingData } = useContext(DataCtx);
   const [filter, setFilter] = useState("");
   const [rowsCounter, setRowsCounter] = useState(1);
+  const { GenerateCSV } = useCSV();
 
   const filteredData: () => dataType[] = useCallback(() => {
     if (filter === "") {
@@ -85,7 +88,9 @@ const Edit = () => {
           >
             + הוספת רשומות
           </Button>
-          <Button variant={"contained"}>ייצוא לCSV</Button>
+          <Button variant={"contained"}>
+            <CSVLink data={GenerateCSV(filteredData())}>ייצוא לCSV</CSVLink>
+          </Button>
         </div>
       </div>
       <DataTable
