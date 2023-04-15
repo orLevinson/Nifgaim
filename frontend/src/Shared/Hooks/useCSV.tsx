@@ -108,7 +108,9 @@ const useCSV = () => {
                 ) {
                   rowArrs[entryIndex][colIndex] = entry[column.id] as string;
                 } else {
-                  rowArrs[entryIndex][colIndex] = null;
+                  if (rowArrs[entryIndex]) {
+                    rowArrs[entryIndex][colIndex] = null;
+                  }
                 }
               }
             );
