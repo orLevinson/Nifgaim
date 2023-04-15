@@ -45,7 +45,7 @@ const Welcome = () => {
                 navigate("/edit");
               }}
             >
-              <h3>עריכת טבלה</h3>
+              <h3>טבלת נתונים</h3>
             </div>
           )}
           {isAdmin && (

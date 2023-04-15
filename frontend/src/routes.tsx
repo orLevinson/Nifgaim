@@ -27,7 +27,7 @@ export const editPermRoutes = [
     page: <Welcome />,
   },
   {
-    name: "עריכת נתונים",
+    name: "טבלת נתונים",
     url: "/edit",
     page: <Edit />,
   },
@@ -40,7 +40,7 @@ export const adminPermRoutes = [
     page: <Welcome />,
   },
   {
-    name: "עריכת נתונים",
+    name: "טבלת נתונים",
     url: "/edit",
     page: <Edit />,
   },

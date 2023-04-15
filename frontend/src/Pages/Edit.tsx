@@ -61,7 +61,7 @@ const Edit = () => {
           alignItems: "center",
         }}
       >
-        <h1>טבלת נפגעים</h1>
+        <h1>טבלת נתונים</h1>
 
         <div style={{ display: "flex", gap: "10px" }}>
           <TextField

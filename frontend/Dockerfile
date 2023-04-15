@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
+ENV VITE_BACKEND_URL=$VITE_BACKEND_URL
 
-CMD [ "npx","serve","--single","dist"]
+CMD npm run build && npx serve -s dist
