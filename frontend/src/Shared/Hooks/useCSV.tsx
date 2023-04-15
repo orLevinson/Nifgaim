@@ -98,12 +98,14 @@ const useCSV = () => {
                   column.type === "date" &&
                   entry[column.id] &&
                   typeof entry[column.id] === "string" &&
-                  isValidDate(entry[column.id] as string)
+                  isValidDate(entry[column.id] as string) &&
+                  rowArrs[entryIndex]
                 ) {
                   const date = new Date(entry[column.id] as string);
                   rowArrs[entryIndex][colIndex] = formatDate(date);
                 } else if (
                   entry[column.id] &&
+                  rowArrs[entryIndex] &&
                   typeof entry[column.id] === "string"
                 ) {
                   rowArrs[entryIndex][colIndex] = entry[column.id] as string;
